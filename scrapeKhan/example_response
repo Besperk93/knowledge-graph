@@ -1,0 +1,2111 @@
+{
+  "responseContext": {
+    "serviceTrackingParams": [
+      {
+        "service": "CSI",
+        "params": [
+          {
+            "key": "c",
+            "value": "WEB"
+          },
+          {
+            "key": "cver",
+            "value": "2.20220203.04.00"
+          },
+          {
+            "key": "yt_li",
+            "value": "1"
+          },
+          {
+            "key": "GetTranscriptWatch_rid",
+            "value": "0x31b4054b657a691f"
+          }
+        ]
+      },
+      {
+        "service": "GFEEDBACK",
+        "params": [
+          {
+            "key": "logged_in",
+            "value": "1"
+          },
+          {
+            "key": "e",
+            "value": "24165080,24002022,24166123,23804281,24034168,23946420,24062267,24080738,23918597,23882502,23966208,24166867,24077241,24001373,24045475,24059444,24148483,24077266,23744176,24138064,24134152,23968386,24059508,24161848,24124014,24109689,24150973,24002025,24151907,23983296,24141413,23934970,23884386,24007790,24140247,24135310,24111165,24152443,24120829,24142470,24108447,24004644,24002923,24007246,24145515,24085811,23998056,24036947,23944779,24143428,24154616,23986017,24028143,24045476,39321475,24120819,24110902,24106839,24141462,1714247,24138442,24082662"
+          }
+        ]
+      },
+      {
+        "service": "GUIDED_HELP",
+        "params": [
+          {
+            "key": "logged_in",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "service": "ECATCHER",
+        "params": [
+          {
+            "key": "client.version",
+            "value": "2.20220203"
+          },
+          {
+            "key": "client.name",
+            "value": "WEB"
+          },
+          {
+            "key": "client.fexp",
+            "value": "24165080,24002022,24166123,23804281,24034168,23946420,24062267,24080738,23918597,23882502,23966208,24166867,24077241,24001373,24045475,24059444,24148483,24077266,23744176,24138064,24134152,23968386,24059508,24161848,24124014,24109689,24150973,24002025,24151907,23983296,24141413,23934970,23884386,24007790,24140247,24135310,24111165,24152443,24120829,24142470,24108447,24004644,24002923,24007246,24145515,24085811,23998056,24036947,23944779,24143428,24154616,23986017,24028143,24045476,39321475,24120819,24110902,24106839,24141462,1714247,24138442,24082662"
+          }
+        ]
+      }
+    ],
+    "mainAppWebResponseContext": {
+      "datasyncId": "113816019901996064515||",
+      "loggedOut": false
+    },
+    "webResponseContextExtensionData": {
+      "hasDecorated": true
+    }
+  },
+  "actions": [
+    {
+      "clickTrackingParams": "CAAQw7wCIhMI7OSqvZju9QIV2Q4GAB2KDAFW",
+      "updateEngagementPanelAction": {
+        "targetId": "engagement-panel-transcript",
+        "content": {
+          "transcriptRenderer": {
+            "body": {
+              "transcriptBodyRenderer": {
+                "cueGroups": [
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:00"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Let's say that I've\ngot 2 Chuck Norrises,"
+                            },
+                            "startOffsetMs": "660",
+                            "durationMs": "3920"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:04"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "or maybe it's Chuck Norri."
+                            },
+                            "startOffsetMs": "4580",
+                            "durationMs": "2060"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:06"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And to that I am going to\nadd another 3 Chuck Norrises."
+                            },
+                            "startOffsetMs": "6640",
+                            "durationMs": "6450"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:13"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So I'm going to add\nanother 3 Chuck Norrises."
+                            },
+                            "startOffsetMs": "13090",
+                            "durationMs": "2040"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:15"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And this might seem\na little bit obvious,"
+                            },
+                            "startOffsetMs": "15130",
+                            "durationMs": "1860"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:16"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "but how many Chuck\nNorrises do I now have?"
+                            },
+                            "startOffsetMs": "16990",
+                            "durationMs": "3170"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:20"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Well, 2 Chuck Norrises,\nwe can represent this"
+                            },
+                            "startOffsetMs": "20160",
+                            "durationMs": "2780"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:22"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "as literally a Chuck\nNorris plus a Chuck Norris."
+                            },
+                            "startOffsetMs": "22940",
+                            "durationMs": "3670"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:26"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So let me do that,\na Chuck Norris"
+                            },
+                            "startOffsetMs": "26610",
+                            "durationMs": "1670"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:28"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "plus another Chuck\nNorris, 2 Chuck Norrises."
+                            },
+                            "startOffsetMs": "28280",
+                            "durationMs": "3320"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:31"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "You could also do this\n2 times Chuck Norris,"
+                            },
+                            "startOffsetMs": "31600",
+                            "durationMs": "2010"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:33"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "and this is just another\nway of representing it."
+                            },
+                            "startOffsetMs": "33610",
+                            "durationMs": "2160"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:35"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And 3 Chuck Norrises-- you\ncould do that as a Chuck Norris"
+                            },
+                            "startOffsetMs": "35770",
+                            "durationMs": "5130"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:40"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "plus a Chuck Norris plus\nanother Chuck Norris."
+                            },
+                            "startOffsetMs": "40900",
+                            "durationMs": "4390"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:45"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And so we would\nhave a grand total--"
+                            },
+                            "startOffsetMs": "45290",
+                            "durationMs": "2010"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:47"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "and this might be\nvery simple for you."
+                            },
+                            "startOffsetMs": "47300",
+                            "durationMs": "2700"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:50"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "But you would have a\ngrand total of 1, 2, 3, 4,"
+                            },
+                            "startOffsetMs": "50000",
+                            "durationMs": "2660"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:52"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "5 Chuck Norrises."
+                            },
+                            "startOffsetMs": "52660",
+                            "durationMs": "1790"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "00:54"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So this would be equal\nto 5 Chuck Norrises."
+                            },
+                            "startOffsetMs": "54450",
+                            "durationMs": "6132"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:00"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Now, let's get a little\nbit more abstract here."
+                            },
+                            "startOffsetMs": "60582",
+                            "durationMs": "1958"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:02"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Chuck Norris is a\nvery tangible thing."
+                            },
+                            "startOffsetMs": "62540",
+                            "durationMs": "2669"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:05"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So let's go to a\nlittle bit more of"
+                            },
+                            "startOffsetMs": "65209",
+                            "durationMs": "2121"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:07"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "traditional algebraic notation."
+                            },
+                            "startOffsetMs": "67330",
+                            "durationMs": "2050"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:09"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "If I have 2x's and\nremember, you could"
+                            },
+                            "startOffsetMs": "69380",
+                            "durationMs": "4340"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:13"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "do this as 2x's or 2 times x."
+                            },
+                            "startOffsetMs": "73720",
+                            "durationMs": "2540"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:19"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And to that, I would add\n3x's How many x's do I have?"
+                            },
+                            "startOffsetMs": "79370",
+                            "durationMs": "3850"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:23"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Well, once again,\n2x's, that's 2 times x."
+                            },
+                            "startOffsetMs": "83220",
+                            "durationMs": "2230"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:25"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "You could do that\nas an x plus an x."
+                            },
+                            "startOffsetMs": "85450",
+                            "durationMs": "1960"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:27"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "We don't know what\nthe value of x is."
+                            },
+                            "startOffsetMs": "87410",
+                            "durationMs": "1860"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:29"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "But whatever that value is,\nwe can add it to itself."
+                            },
+                            "startOffsetMs": "89270",
+                            "durationMs": "3190"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:32"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And then 3x's are they're\ngoing to be that value."
+                            },
+                            "startOffsetMs": "92460",
+                            "durationMs": "2320"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:34"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Let me do that in\nthat same green color."
+                            },
+                            "startOffsetMs": "94780",
+                            "durationMs": "2810"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:37"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "3x's are going to be that\nvalue plus that value plus"
+                            },
+                            "startOffsetMs": "97590",
+                            "durationMs": "4050"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:41"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "whatever that value is."
+                            },
+                            "startOffsetMs": "101640",
+                            "durationMs": "1820"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:43"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And so how many\nx's do I now have?"
+                            },
+                            "startOffsetMs": "103460",
+                            "durationMs": "2840"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:46"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Well, I'm going to\nhave 1, 2, 3, 4, 5 x's."
+                            },
+                            "startOffsetMs": "106300",
+                            "durationMs": "4510"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:50"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So 2x plus 3x is equal to 5x."
+                            },
+                            "startOffsetMs": "110810",
+                            "durationMs": "6309"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:57"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And if you think about it, all\nwe really did-- and hopefully,"
+                            },
+                            "startOffsetMs": "117119",
+                            "durationMs": "2541"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "01:59"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "you conceptually\nget it-- is we just"
+                            },
+                            "startOffsetMs": "119660",
+                            "durationMs": "1500"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:01"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "added the 2 numbers that\nwere multiplying the x."
+                            },
+                            "startOffsetMs": "121160",
+                            "durationMs": "2790"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:03"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And these numbers, the 2 or the\n3, they're called coefficients."
+                            },
+                            "startOffsetMs": "123950",
+                            "durationMs": "3400"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:07"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Very fancy word, but it's\njust this constant number,"
+                            },
+                            "startOffsetMs": "127350",
+                            "durationMs": "2510"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:09"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "this regular number that's\nmultiplied by the variable."
+                            },
+                            "startOffsetMs": "129860",
+                            "durationMs": "3120"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:12"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "You just added the 2 and\nthe 3, to get your 5x."
+                            },
+                            "startOffsetMs": "132980",
+                            "durationMs": "3834"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:16"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Now, let's think about\nthis a little bit more."
+                            },
+                            "startOffsetMs": "136814",
+                            "durationMs": "1916"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:18"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Let's go back to this original\nexpression, the 2 Chuck"
+                            },
+                            "startOffsetMs": "138730",
+                            "durationMs": "2670"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:21"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Norrises plus 3 Chuck Norrises."
+                            },
+                            "startOffsetMs": "141400",
+                            "durationMs": "2000"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:23"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Let's say, to that,\nwe were to add"
+                            },
+                            "startOffsetMs": "143400",
+                            "durationMs": "3980"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:27"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "to some type of a-- let's we\nwere to add 7 plums over here."
+                            },
+                            "startOffsetMs": "147380",
+                            "durationMs": "4300"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:31"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So this is my drawing of a plum."
+                            },
+                            "startOffsetMs": "151680",
+                            "durationMs": "2370"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:34"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So we have 7 plums plus 2 Chuck\nNorrises plus 3 Chuck Norrises."
+                            },
+                            "startOffsetMs": "154050",
+                            "durationMs": "4360"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:38"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And let's say that I\nadd another 2 plums."
+                            },
+                            "startOffsetMs": "158410",
+                            "durationMs": "2630"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:41"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "I add another 2 plums here."
+                            },
+                            "startOffsetMs": "161040",
+                            "durationMs": "1910"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:42"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So what this whole thing be?"
+                            },
+                            "startOffsetMs": "162950",
+                            "durationMs": "2040"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:44"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Well, I wouldn't add the 7\nto the 2 to the 3 plus the 2."
+                            },
+                            "startOffsetMs": "164990",
+                            "durationMs": "3180"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:48"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "We're adding\ndifferent things here."
+                            },
+                            "startOffsetMs": "168170",
+                            "durationMs": "1580"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:49"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "You have 2 Chuck Norrises\nand 3 Chuck Norrises,"
+                            },
+                            "startOffsetMs": "169750",
+                            "durationMs": "2200"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:51"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "so they're still going to\nsimplify to 5 Chuck Norrises. ."
+                            },
+                            "startOffsetMs": "171950",
+                            "durationMs": "2945"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:54"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And then we would separately\nthink about the plums."
+                            },
+                            "startOffsetMs": "174895",
+                            "durationMs": "2125"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:57"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "We have 7 plums, and we're\nadding another 2 plums."
+                            },
+                            "startOffsetMs": "177020",
+                            "durationMs": "2680"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "02:59"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "We're going to have 9 plums."
+                            },
+                            "startOffsetMs": "179700",
+                            "durationMs": "2120"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:01"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Plus 9 plums, so this simplifies\nto five Chuck Norrises and 9"
+                            },
+                            "startOffsetMs": "181820",
+                            "durationMs": "5100"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:06"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "plums."
+                            },
+                            "startOffsetMs": "186920",
+                            "durationMs": "890"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:07"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Similarly, over here,\ninstead of just 2x plus 3x,"
+                            },
+                            "startOffsetMs": "187810",
+                            "durationMs": "4550"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:12"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "if I had 7y plus 2x plus 3x\nplus 2y, what do I now have?"
+                            },
+                            "startOffsetMs": "192360",
+                            "durationMs": "9610"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:21"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Well, I can't add the\nx's and the y's."
+                            },
+                            "startOffsetMs": "201970",
+                            "durationMs": "2080"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:24"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "They could very well\nrepresent a different number."
+                            },
+                            "startOffsetMs": "204050",
+                            "durationMs": "2370"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:26"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So all I can do is\nreally add the x's."
+                            },
+                            "startOffsetMs": "206420",
+                            "durationMs": "2170"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:28"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And then I get the 5x."
+                            },
+                            "startOffsetMs": "208590",
+                            "durationMs": "1432"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:30"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And then, I'd\nseparately add the y."
+                            },
+                            "startOffsetMs": "210022",
+                            "durationMs": "1458"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:31"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "If I have 7y's and to that I add\n2y's, I'm going to have 9y's."
+                            },
+                            "startOffsetMs": "211480",
+                            "durationMs": "4320"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:35"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "If I have 7 of something\nand I add 2 of something,"
+                            },
+                            "startOffsetMs": "215800",
+                            "durationMs": "2370"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:38"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "I now have 9 of that something."
+                            },
+                            "startOffsetMs": "218170",
+                            "durationMs": "2270"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:40"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So I'm going to have 9y's."
+                            },
+                            "startOffsetMs": "220440",
+                            "durationMs": "2270"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:42"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So you add that."
+                            },
+                            "startOffsetMs": "222710",
+                            "durationMs": "1525"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:44"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Do that in a different color."
+                            },
+                            "startOffsetMs": "224235",
+                            "durationMs": "1505"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:45"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "You add this and this."
+                            },
+                            "startOffsetMs": "225740",
+                            "durationMs": "2960"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:48"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "You get that."
+                            },
+                            "startOffsetMs": "228700",
+                            "durationMs": "1440"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:50"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "You add the x's."
+                            },
+                            "startOffsetMs": "230140",
+                            "durationMs": "3930"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:54"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "You get that right over there."
+                            },
+                            "startOffsetMs": "234070",
+                            "durationMs": "1994"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:56"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So hopefully, that\nmakes a little sense."
+                            },
+                            "startOffsetMs": "236064",
+                            "durationMs": "1666"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:57"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Actually I'll throw\nout one more idea."
+                            },
+                            "startOffsetMs": "237730",
+                            "durationMs": "1583"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "03:59"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So given this, what would happen\nif I were to have 2x plus 1"
+                            },
+                            "startOffsetMs": "239313",
+                            "durationMs": "5217"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:04"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "plus 7x plus 5?"
+                            },
+                            "startOffsetMs": "244530",
+                            "durationMs": "3877"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:08"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Well, once again,\nyou might be tempted"
+                            },
+                            "startOffsetMs": "248407",
+                            "durationMs": "1583"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:09"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "to add the 2 plus\nthe 1, but they're"
+                            },
+                            "startOffsetMs": "249990",
+                            "durationMs": "1360"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:11"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "adding different things."
+                            },
+                            "startOffsetMs": "251350",
+                            "durationMs": "870"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:12"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "These are 2x's."
+                            },
+                            "startOffsetMs": "252220",
+                            "durationMs": "750"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:12"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "This is just the number 1."
+                            },
+                            "startOffsetMs": "252970",
+                            "durationMs": "1940"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:14"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So you really just have\nto add the x's together."
+                            },
+                            "startOffsetMs": "254910",
+                            "durationMs": "2580"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:17"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "So you're going to\nsay, well, I got 2x's."
+                            },
+                            "startOffsetMs": "257489",
+                            "durationMs": "1940"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:19"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And I'm going to\nadd 7x's to that."
+                            },
+                            "startOffsetMs": "259430",
+                            "durationMs": "2120"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:21"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "Well, that means\nI now have 9x's."
+                            },
+                            "startOffsetMs": "261549",
+                            "durationMs": "1957"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:23"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And then, separately,\nyou'd say, well,"
+                            },
+                            "startOffsetMs": "263507",
+                            "durationMs": "1583"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:25"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "I've got just the\nabstract number 1."
+                            },
+                            "startOffsetMs": "265090",
+                            "durationMs": "2040"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:27"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "And then I've got another 5."
+                            },
+                            "startOffsetMs": "267130",
+                            "durationMs": "1330"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "transcriptCueGroupRenderer": {
+                      "formattedStartOffset": {
+                        "simpleText": "04:28"
+                      },
+                      "cues": [
+                        {
+                          "transcriptCueRenderer": {
+                            "cue": {
+                              "simpleText": "1 plus 5 is going\nto be equal to 6."
+                            },
+                            "startOffsetMs": "268460",
+                            "durationMs": "3820"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "footer": {
+              "transcriptFooterRenderer": {
+                "languageMenu": {
+                  "sortFilterSubMenuRenderer": {
+                    "subMenuItems": [
+                      {
+                        "title": "Arabic",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtRnlHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CDYQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CDUQ48AHGAAiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Azerbaijani",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtRjZHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CDQQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CDMQ48AHGAEiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Bulgarian",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtSm5HZ0ElM0Q%3D",
+                            "clickTrackingParams": "CDIQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CDEQ48AHGAIiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Burmese",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtMTVHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CDAQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CC8Q48AHGAMiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Chinese (Simplified, China)",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIcQ2dBU0NucG9MVWhoYm5NdFEwNGFBQSUzRCUzRA%3D%3D",
+                            "clickTrackingParams": "CC4QxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CC0Q48AHGAQiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Chinese (Simplified)",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIYQ2dBU0IzcG9MVWhoYm5NYUFBJTNEJTNE",
+                            "clickTrackingParams": "CCwQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CCsQ48AHGAUiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Czech",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtTnpHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CCoQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CCkQ48AHGAYiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Danish",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtUmhHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CCgQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CCcQ48AHGAciEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "English",
+                        "selected": true,
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtVnVHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CCYQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CCUQ48AHGAgiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "English (auto-generated)",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRISQ2dOaGMzSVNBbVZ1R2dBJTNE",
+                            "clickTrackingParams": "CCQQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CCMQ48AHGAkiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "French",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtWnlHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CCIQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CCEQ48AHGAoiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Georgian",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtdGhHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CCAQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CB8Q48AHGAsiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "German",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtUmxHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CB4QxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CB0Q48AHGAwiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Hungarian",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtaDFHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CBwQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CBsQ48AHGA0iEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Italian",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtbDBHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CBoQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CBkQ48AHGA4iEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Korean",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtdHZHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CBgQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CBcQ48AHGA8iEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Norwegian",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FtNXZHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CBYQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CBUQ48AHGBAiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Polish",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FuQnNHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CBQQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CBMQ48AHGBEiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Portuguese",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FuQjBHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CBIQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CBEQ48AHGBIiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Russian",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FuSjFHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CBAQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CA8Q48AHGBMiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Serbian",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FuTnlHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CA4QxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CA0Q48AHGBQiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Swahili",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FuTjNHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CAwQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CAsQ48AHGBUiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Tamil",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FuUmhHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CAoQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CAkQ48AHGBYiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Thai",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FuUm9HZ0ElM0Q%3D",
+                            "clickTrackingParams": "CAgQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CAcQ48AHGBciEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Turkish",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FuUnlHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CAYQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CAUQ48AHGBgiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      },
+                      {
+                        "title": "Ukrainian",
+                        "continuation": {
+                          "reloadContinuationData": {
+                            "continuation": "CgtDTFdwa3Y2Y2NwQRIOQ2dBU0FuVnJHZ0ElM0Q%3D",
+                            "clickTrackingParams": "CAQQxqYCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                          }
+                        },
+                        "trackingParams": "CAMQ48AHGBkiEwjs5Kq9mO71AhXZDgYAHYoMAVY="
+                      }
+                    ],
+                    "trackingParams": "CAIQgdoEIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+                  }
+                }
+              }
+            },
+            "trackingParams": "CAEQ8bsCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+          }
+        }
+      }
+    }
+  ],
+  "trackingParams": "CAAQw7wCIhMI7OSqvZju9QIV2Q4GAB2KDAFW"
+}
