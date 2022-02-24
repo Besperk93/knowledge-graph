@@ -4,20 +4,21 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 
 
 class yt_channel_scraper():
 
-    SCROLL_PAUSE = 10.0
+    SCROLL_PAUSE = 5.0
 
     def save_text(self, text):
         try:
             page_title = self.driver.title
-            with open(f'transcripts/{page_title}.txt', 'w') as file:
+            with open(f'Vault/transcripts/{page_title}.txt', 'w') as file:
                 file.write(text)
         except Exception as e:
-            print(f'Error saving text: {repr(e)}')
-            self.driver.quit()
+            print(f'Error saving text for {self.driver.title}: {repr(e)}')
+
 
     def get_transcript(self):
         try:
@@ -26,8 +27,7 @@ class yt_channel_scraper():
             text = transcript.text
             return self.save_text(text)
         except Exception as e:
-            print(f'Error getting the transcript: {repr(e)}')
-            self.driver.quit()
+            print(f'Error getting the transcript for {self.driver.title}: {repr(e)}')
 
 
     def open_transcript(self):
@@ -37,8 +37,7 @@ class yt_channel_scraper():
             transcript_button.click()
             return self.get_transcript()
         except Exception as e:
-            print(f'Error opening transcript: {repr(e)}')
-            self.driver.quit()
+            print(f'Error opening transcript for {self.driver.title}: {repr(e)}')
 
 
     def open_menu(self):
@@ -50,8 +49,7 @@ class yt_channel_scraper():
             # menu_button.click()
             return self.open_transcript()
         except Exception as e:
-            print(f'Error opening menu: {repr(e)}')
-            self.driver.quit()
+            print(f'Error opening menu for {self.driver.title}: {repr(e)}')
 
 
     def open_video(self, links):
@@ -59,10 +57,9 @@ class yt_channel_scraper():
             # TODO: This splitter is not woking as expected. look into how we can queue up each video
             for video_link in links:
                 self.driver.get(video_link)
-                return self.open_menu()
+                self.open_menu()
         except Exception as e:
-            print(f'Error opening videos: {repr(e)}')
-            self.driver.quit()
+            print(f'Error opening {self.driver.title}: {repr(e)}')
 
     def get_links(self):
         try:
@@ -83,12 +80,15 @@ class yt_channel_scraper():
     def scroll_down(self):
         # TODO: This isn't working, the browser is waiting but not scrolling. check the javascript
         try:
-            height = self.driver.execute_script(r'return document.body.scrollHeight')
+            element = self.driver.find_element(By.CSS_SELECTOR, "ytd-browse.style-scope.ytd-page-manager")
+            height = self.driver.execute_script("return arguments[0].scrollHeight", element)
+            print(height)
             while True:
-                self.driver.execute_script(r'window.scrollTo(0, document.body.scrollHeight);')
+                self.driver.find_element_by_tag_name('body').send_keys(Keys.END)
                 time.sleep(self.SCROLL_PAUSE)
-                new_height = self.driver.execute_script(r'return document.body.scrollHeight')
-                if new_height == height:
+                new_height = self.driver.execute_script("return arguments[0].scrollHeight", element)
+                print(new_height)
+                if height == new_height:
                     break
                 height = new_height
             return self.get_links()
