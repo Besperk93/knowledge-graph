@@ -1,0 +1,40 @@
+{
+  "id": "VIDEO_ID",
+  "meta": {
+      "title": "EXAMPLE_TITLE"
+    },
+  "triples": {
+    "UID": [{
+      "predicate": "RELATIONSHIP",
+      "subject": "ENTITY_1",
+      "object": "ENTITY_ 2"
+    }],
+    "UID": [{
+      "predicate": "RELATIONSHIP",
+      "subject": "ENTITY_1",
+      "object": "ENTITY_3"
+      }]
+  }
+}
+
+
+
+
+{
+  "id": "00A1",
+  "meta": {
+      "title": "Fence posts for horses | Addition and subtraction within 100 | Early Math | Khan Academy"
+    },
+  "triples": {
+    "001": [{
+      "predicate": "Builds",
+      "subject": "Farmer",
+      "object": "Fence"
+    }],
+    "002": [{
+      "predicate": "Builds",
+      "subject": "Farmer",
+      "object": "Fence"
+      }]
+  }
+}
