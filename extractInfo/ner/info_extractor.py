@@ -1,6 +1,6 @@
 import os
 import re
-import spacyRecogniser
+import spacy_recogniser
 import pandas as pd
 import json
 

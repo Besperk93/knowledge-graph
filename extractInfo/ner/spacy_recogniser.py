@@ -8,7 +8,7 @@ class entityRecogniser:
 
     def run_ner(self):
         doc = nlp(self.TEXT)
-        print(f'{len(doc.ents)} entities were found in this transcript')
+        print(f'{len(doc.ents)} entities were found in this document')
         return [(token.text, token.label_) for token in doc.ents]
 
     def __init__(self, sentences):
