@@ -1,0 +1,48 @@
+{
+  "id": "VIDEO_ID",
+  "meta": {
+      "title": "EXAMPLE_TITLE"
+    },
+  "entities": {
+    "FARMER": [{
+      "predicate": "TYPE",
+      "object": "PERSON"
+    },
+    {
+      "predicate": "BUILDS",
+      "object": "FENCE"
+    }
+  ],
+    "PAULY": [{
+      "predicate": "TYPE",
+      "object": "ANIMAL"
+      },
+      {
+      "predicate": "RECEIVES",
+      "object": "FENCE"
+      }
+    ],
+    "HAZEL": [{
+      "predicate": "TYPE",
+      "object": "ANIMAL"
+      },
+      {
+      "predicate": "RECEIVES",
+      "object": "FENCE"
+      }
+    ],
+    "FENCE": [{
+      "predicate": "TYPE",
+      "object": "OBJECT"
+      },
+      {
+      "predicate": "USES",
+      "object": "26"
+      },
+      {
+      "predicate": "USES",
+      "object": "19"
+      }
+    ]
+  }
+}
