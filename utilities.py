@@ -5,7 +5,7 @@ from itertools import permutations
 
 def load_pickle(filename):
     """load data pickle from data directory"""
-    with open(f"./Vault/data/{filename}", 'rb') as pkl_file:
+    with open(filename, 'rb') as pkl_file:
         data = pickle.load(pkl_file)
     return data
 
