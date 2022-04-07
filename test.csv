@@ -1,5 +1,0 @@
-Relation,Entity_1,Entity_2,Label_1,Label_2,Meta1,Meta2
-cause_of,weather,rain,noun,noun,none,none
-part_of,outfit,shorts,noun,noun,none,none
-cause_of,weather,shorts,noun,noun,none,none
-cause_of,running,shorts,verb,noun,none,none
