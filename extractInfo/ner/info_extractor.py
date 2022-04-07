@@ -11,9 +11,8 @@ class infoExtractor:
         with open(self.OUTPUT, "w") as output:
             json.dump(self.ENTITY_DATA, output)
 
-
     def extract_entities(self, sentences, title):
-        extractor = spacyRecogniser.entityRecogniser(sentences)
+        extractor = spacy_recogniser.entityRecogniser(sentences)
         entities = extractor.run_ner()
         self.ENTITY_DATA.append({title: entities})
 
@@ -27,6 +26,7 @@ class infoExtractor:
                     line = line.replace('\n', ' ')
                     transcript += line
         sentences = transcript.split(". ")
+        print(sentences)
         return self.extract_entities(sentences, script.name)
 
 

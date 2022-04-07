@@ -1,6 +1,7 @@
 import os
 import pickle
 import re
+import json
 from itertools import permutations
 
 def load_pickle(filename):
@@ -14,6 +15,15 @@ def save_data_pickle(filename, data):
     """save data as a pickle file"""
     with open(f".Vault/data/{filename}", 'wb') as output:
         pickle.dump(data, output)
+
+
+def import_relations(loc1, loc2):
+    with open(loc1, 'r') as in_file:
+        rel2idx = json.load(in_file)
+    with open(loc2, 'r') as in_file:
+        idx2rel = json.load(in_file)
+    relations = Relations_Mapper_From_Trained(rel2idx, idx2rel)
+    return relations
 
 
 # This is used in the preprocessing stages to prepare the blanked dataset "D".
@@ -86,3 +96,10 @@ def extract_mention(e1, e2, sentences, window):
         x = [token.text for token in sentences[l_limit:r_limit]]
         r = (x, (e1.start - l_limit, e1.end - l_limit), (e2.start - l_limit, e2.end - l_limit))
         return r
+
+
+
+class Relations_Mapper_From_Trained(object):
+    def __init__(self, rel2idx, idx2rel):
+        self.rel2idx = rel2idx
+        self.idx2rel = idx2rel

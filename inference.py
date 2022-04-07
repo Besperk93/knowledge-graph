@@ -3,11 +3,12 @@ import torch
 import os
 import re
 from transformers import BertModel, BertTokenizer
-from utilities import load_pickle
+from utilities import load_pickle, import_relations
 from itertools import permutations
 from Vault.weetee.BERT.modeling_bert import BertModel as Model
+from Vault.weetee.BERT.tokenization_bert import BertTokenizer as Tokenizer
 
-class inference_pipeline:
+class InferencePipeline:
 
     """Loads a trained model into an inference pipeline for extracting entities and relationships from an input doc"""
 
@@ -25,10 +26,7 @@ class inference_pipeline:
 
     def extract_one_relation(self, mention):
         self.NET.eval()
-        try:
-            tokenized = self.TOKENIZER.encode(mention)
-        except Exception as e:
-            print(f"Error encoding mention: {repr(e)}")
+        tokenized = self.TOKENIZER.encode(mention)
         entity_starts = self.get_e1e2_start(tokenized)
         tokenized = torch.LongTensor(tokenized).unsqueeze(0)
         entity_starts = torch.LongTensor(entity_starts).unsqueeze(0)
@@ -45,22 +43,27 @@ class inference_pipeline:
             classification_logits = self.NET(tokenized, token_type_ids=token_type_ids, attention_mask=attention_mask, Q=None, e1_e2_start=entity_starts)
             predicted = torch.softmax(classification_logits, dim=1).max(1)[1].item()
 
-        print(f"Sentence: {mention}")
-        print(f"Relationship: {self.RM.idx2rel[predicted].strip()}")
-        return predicted
+        relationship = self.RM.idx2rel[str(predicted)].strip()
+        # print(f"Sentence: {mention}")
+        # print(f"Relationship: {relationship} \n")
+        return (mention, relationship)
 
     def get_e1e2_start(self, x):
-        E1 = self.TOKENIZER.convert_tokens_to_ids('[E1]')
-        E2 = self.TOKENIZER.convert_tokens_to_ids('[E2]')
-        e1_e2_start = ([i for i, e in enumerate(x) if e == E1][0], [i for i, e in enumerate(x) if e == E2][0])
-        return e1_e2_start
+        try:
+            e1_e2_start = ([i for i, e in enumerate(x) if e == self.E1][0], [i for i, e in enumerate(x) if e == self.E2][0])
+            return e1_e2_start
+        except Exception as e:
+            pass
+            # print(f"Error getting entity start markers: {repr(e)}")
+            # print(x)
 
     def annotate_sentences(self, input):
         sentences = self.NLP(input)
         pairs = self.get_entities(sentences)
         pairs.extend(self.get_all_sub_obj_pairs(sentences))
         if len(pairs) == 0:
-            print("Did not find enough entities to extract relation")
+            # print("Did not find enough entities to extract relation")
+            return
         annotated_list = []
         for pair in pairs:
             try:
@@ -94,13 +97,13 @@ class inference_pipeline:
                     annotated += ' [E2]' + token.text + '[/E2] '
                     e2start, e2end = 1, 1
                     continue
-                else:
-                    if (token.text == e2[0].text) and (e2start == 0):
-                        annotated += ' [E2]' + token.text + ' '
-                        e2start += 1
-                        continue
-                    elif (token.text == e2[-1].text) and (e2end == 0):
-                        annotated += token.text + '[/E2] '
+            else:
+                if (token.text == e2[0].text) and (e2start == 0):
+                    annotated += ' [E2]' + token.text + ' '
+                    e2start += 1
+                    continue
+                elif (token.text == e2[-1].text) and (e2end == 0):
+                    annotated += token.text + '[/E2] '
             annotated += ' ' + token.text + ' '
         annotated = annotated.strip()
         annotated = re.sub(' +', ' ', annotated)
@@ -126,16 +129,15 @@ class inference_pipeline:
             sents_doc = input
         sent_ = next(sents_doc.sents)
         root = sent_.root
-        #print('Root: ', root.text)
 
         subject = None; objs = []; pairs = []
         for child in root.children:
-            #print(child.dep_)
             if child.dep_ in ["nsubj", "nsubjpass"]:
-                if len(re.findall("[a-z]+",child.text.lower())) > 0: # filter out all numbers/symbols
-                    subject = child; #print('Subject: ', child)
-            elif child.dep_ in ["dobj", "attr", "prep", "ccomp"]:
-                objs.append(child); #print('Object ', child)
+                #NOTE: Commenting this out to see if I can get better numerical info
+                # if len(re.findall("[a-z]+",child.text.lower())) > 0: # filter out all numbers/symbols
+                subject = child
+            elif child.dep_ in ["dobj", "attr", "prep", "ccomp", "compound", "pobj", "quantmod"]:
+                objs.append(child)
 
         if (subject is not None) and (len(objs) > 0):
             for a, b in permutations([subject] + [obj for obj in objs], 2):
@@ -172,8 +174,10 @@ class inference_pipeline:
             print(f"Error loading BERT from transformers: {repr(e)}")
             return
         try:
-            self.TOKENIZER = BertTokenizer.from_pretrained('bert-base-uncased')
+            self.TOKENIZER = Tokenizer.from_pretrained('bert-base-uncased', do_lower_case=False)
             self.TOKENIZER.add_tokens(['[E1]', '[/E1]', '[E2]', '[/E2]', '[BLANK]'])
+            self.E1 = self.TOKENIZER.convert_tokens_to_ids('[E1]')
+            self.E2 = self.TOKENIZER.convert_tokens_to_ids('[E2]')
         except Exception as e:
             print(f"Error loading tokenizer: {repr(e)}")
             return
@@ -188,7 +192,7 @@ class inference_pipeline:
     def __init__(self):
         self.CUDA = torch.cuda.is_available()
         self.NLP = spacy.load("en_core_web_trf")
-        self.RM = load_pickle('/home/besperk/Code/knowledge-graph/Vault/weetee/relations.pkl')
+        self.RM = import_relations('Vault/relations.json', 'Vault/relation_ids.json')
         self.load_model()
         self.load_model_checkpoint()
         self.update_model()
