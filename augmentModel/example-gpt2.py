@@ -1,7 +1,7 @@
 import torch
 import transformers
-from src.kb.model_gpt2 import KnowGPT2Model, KnowBertForPretraining
-from src.kb.knowledge import KnowledgeBase, KnowledgeBaseRegistry
+from model import KnowGPT2Model, KnowBertForPretraining
+from knowledgeBase import KnowledgeBase, KnowledgeBaseRegistry
 
 @KnowledgeBaseRegistry.instance.register("example-test-kb")
 class TestKB(KnowledgeBase):

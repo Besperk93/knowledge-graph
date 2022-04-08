@@ -1,5 +1,5 @@
 from transformers import GPT2Config
-from .knowledge import KnowledgeBase
+from knowledge import KnowledgeBase
 
 class KnowGPT2Config(GPT2Config):
 

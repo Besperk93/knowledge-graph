@@ -16,10 +16,10 @@ from transformers.models.bert.modeling_bert import (
 from transformers.modeling_outputs import BaseModelOutputWithPastAndCrossAttentions
 
 # import configuration
-from .config import KnowGPT2Config
+from config import KnowGPT2Config
 # import kar and knowledge base
-from .kar import KAR
-from .knowledgeBase import KnowledgeBase, KnowledgeBaseRegistry
+from kar import KAR
+from knowledgeBase import KnowledgeBase, KnowledgeBaseRegistry
 
 
 """ KnowBert Encoder """
