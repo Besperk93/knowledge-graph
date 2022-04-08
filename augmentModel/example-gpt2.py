@@ -1,6 +1,6 @@
 import torch
 import transformers
-from src.kb.model import KnowBertModel, KnowBertForPretraining
+from src.kb.model_gpt2 import KnowGPT2Model, KnowBertForPretraining
 from src.kb.knowledge import KnowledgeBase, KnowledgeBaseRegistry
 
 @KnowledgeBaseRegistry.instance.register("example-test-kb")
@@ -33,25 +33,33 @@ class TestKB(KnowledgeBase):
 
 # sample sentences
 sampleA = "This is a nice coffee spot and the food was tasty too!"
-sampleB = "I do not like this place very much!"
+# sampleB = "I do not like this place very much!"
 
 # create bert model
-bert = KnowBertModel.from_pretrained("gpt2")
+gpt2 = KnowGPT2Model.from_pretrained("gpt2")
 # add knowledge base
-kb_A = bert.add_kb(3, TestKB())
-kb_B = bert.add_kb(2, TestKB())
+kb_A = gpt2.add_kb(3, TestKB())
+# kb_B = bert.add_kb(2, TestKB())
 
 # create tokenizer
 tokenizer = transformers.GPT2Tokenizer.from_pretrained("gpt2")
+
 tokensA = tokenizer.tokenize(sampleA)
-tokensB = tokenizer.tokenize(sampleB)
-l = max(len(tokensA), len(tokensB))
-input_ids_A = tokenizer.convert_tokens_to_ids(tokensA) + [tokenizer.sep_token_id] * (l - len(tokensA))
-input_ids_B = tokenizer.convert_tokens_to_ids(tokensB) + [tokenizer.sep_token_id] * (l - len(tokensB))
-# create tensor
-input_ids = torch.tensor([input_ids_A, input_ids_B]).long()
+# tokensB = tokenizer.tokenize(sampleB)
+# print(f"A: {tokensA}\nB: {tokensB}")
+
+input_ids_A = tokenizer(sampleA)['input_ids']
+# input_ids_B = tokenizer(sampleB)['input_ids']
+# print(f"A: {input_ids_A}\nB: {input_ids_B}")
+
+try:
+    # create tensor
+    input_ids = torch.tensor([input_ids_A]).long()
+except Exception as e:
+    print(f"Could not create input_ids: {repr(e)}")
+
 
 # prepare and execute
-bert.prepare_kbs([tokensA, tokensB])
-output = bert.forward(input_ids)
+gpt2.prepare_kbs([tokensA])
+output = gpt2.forward(input_ids)
 print(output)

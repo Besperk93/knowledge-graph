@@ -1,44 +1,63 @@
-from transformers import BertConfig
+from transformers import GPT2Config
 from .knowledge import KnowledgeBase
 
-class KnowConfig(BertConfig):
+class KnowGPT2Config(GPT2Config):
 
-    def __init__(self,
-        vocab_size=30522,
-        hidden_size=768,
-        num_hidden_layers=12,
-        num_attention_heads=12,
-        intermediate_size=3072,
-        hidden_act="gelu",
-        hidden_dropout_prob=0.1,
-        attention_probs_dropout_prob=0.1,
-        max_position_embeddings=512,
-        type_vocab_size=2,
+    def __init__(       self,
+        vocab_size=50257,
+        n_positions=1024,
+        n_embd=768,
+        n_layer=12,
+        n_head=12,
+        n_inner=None,
+        activation_function="gelu_new",
+        resid_pdrop=0.1,
+        embd_pdrop=0.1,
+        attn_pdrop=0.1,
+        layer_norm_epsilon=1e-5,
         initializer_range=0.02,
-        layer_norm_eps=1e-12,
-        pad_token_id=0,
-        gradient_checkpointing=True,
+        summary_type="cls_index",
+        summary_use_proj=True,
+        summary_activation=None,
+        summary_proj_to_labels=True,
+        summary_first_dropout=0.1,
+        scale_attn_weights=True,
+        use_cache=True,
+        bos_token_id=50256,
+        eos_token_id=50256,
+        scale_attn_by_inverse_layer_idx=False,
+        reorder_and_upcast_attn=False,
         kbs={},
+        gradient_checkpointing=False,
         pretrained_model_name_or_path=None,
         **kwargs):
 
         # initialize bert config from super class:
-        BertConfig.__init__(self,
+        GPT2Config.__init__(self,
             vocab_size=vocab_size,
-            hidden_size=hidden_size,
-            num_hidden_layers=num_hidden_layers,
-            num_attention_heads=num_attention_heads,
-            intermediate_size=intermediate_size,
-            hidden_act=hidden_act,
-            hidden_dropout_prob=hidden_dropout_prob,
-            attention_probs_dropout_prob=attention_probs_dropout_prob,
-            max_position_embeddings=max_position_embeddings,
-            type_vocab_size=type_vocab_size,
+            n_positions=n_positions,
+            n_embd=n_embd,
+            n_layer=n_layer,
+            n_head=n_head,
+            n_inner=n_inner,
+            activation_function=activation_function,
+            resid_pdrop=resid_pdrop,
+            embd_pdrop=embd_pdrop,
+            attn_pdrop=attn_pdrop,
+            layer_norm_epsilon=layer_norm_epsilon,
             initializer_range=initializer_range,
-            layer_norm_eps=layer_norm_eps,
-            pad_token_id=pad_token_id,
-            gradient_checkpointing=gradient_checkpointing,
-            **kwargs
+            summary_type=summary_type,
+            summary_use_proj=summary_use_proj,
+            summary_activation=summary_activation,
+            summary_proj_to_labels=summary_proj_to_labels,
+            summary_first_dropout=summary_first_dropout,
+            scale_attn_weights=scale_attn_weights,
+            use_cache=use_cache,
+            bos_token_id=bos_token_id,
+            eos_token_id=eos_token_id,
+            scale_attn_by_inverse_layer_idx=scale_attn_weights,
+            reorder_and_upcast_attn=reorder_and_upcast_attn,
+            **kwargs,
         )
         # save knowledge configurations
         self.kbs = kbs
@@ -62,7 +81,7 @@ class KnowConfig(BertConfig):
     @classmethod
     def from_pretrained(cls, pretrained_model_name_or_path:str, **kwargs):
         # check class
-        if not issubclass(cls, KnowBertConfig):
+        if not issubclass(cls, KnowGPT2Config):
             raise RuntimeError("Knowbert Configuration must inhert KnowBertConfig! (Got %s)" % cls.__name__)
         # create configuration from model name or path
         config_dict, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
