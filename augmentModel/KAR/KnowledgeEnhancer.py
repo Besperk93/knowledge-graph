@@ -1,9 +1,10 @@
 import torch
 import torch.nn as nn
+from .Utilities import set_start_weights
 
 
 
-class KnowledgeEnhancer(nn.module):
+class KnowledgeEnhancer(nn.Module):
 
     def __init__(self, kb, threshold:float=None):
         super(KnowledgeEnhancer, self).__init__()

@@ -1,11 +1,15 @@
 import torch
 import torch.nn as nn
 
-from transformers.modeling import BertSelfOutput
+from transformers import BertConfig
+from transformers.models.bert.modeling_bert import (BertEncoder, BertSelfOutput,
+            BertIntermediate, BertOutput
+            )
+
+from .Utilities import set_start_weights
 
 
-
-class WordAttention(nn.module):
+class WordAttention(nn.Module):
 
     # Establish a key, query and value as a linear function of the entity embeddings and hidden states
 
@@ -61,7 +65,7 @@ class WordAttention(nn.module):
 
 
 
-class SpanAttention(nn.module):
+class SpanAttention(nn.Module):
 
     # Pass the outputs from the WordAttention layer through a Bert Output Layer
 
@@ -84,7 +88,7 @@ class SpanAttention(nn.module):
 
 
 
-class AttentionLayer(nn.module):
+class AttentionLayer(nn.Module):
 
     # Pass hidden_states, entity embeddings and an entity mask through span and word attention layers
 
@@ -108,12 +112,12 @@ class AttentionLayer(nn.module):
         return layer_output, attention_probs
 
 
-class Recontextualizer(nn.module):
+class Recontextualizer(nn.Module):
 
     def __init__(self, kb, span_attention_config:BertConfig):
         super(Recontextualizer, self).__init__()
         # create modules
-        span_attention_config.hidden_size = kb.embedd_dim
+        span_attention_config.hidden_size = kb.embedding_dimensions
         self.span_attention_layer = AttentionLayer(span_attention_config)
 
     def forward(self, enhanced_span_representations, h_projections, mention_mask):

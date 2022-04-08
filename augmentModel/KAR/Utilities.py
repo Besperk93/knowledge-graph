@@ -1,9 +1,10 @@
 import torch
+import torch.nn as nn
 
-from transformers.modeling_bert import (
+from transformers.models.bert.modeling_bert import (
     BertEncoder, BertLayer, BertAttention,
     BertSelfAttention, BertSelfOutput, BertOutput,
-    BertIntermediate, BertLayerNorm
+    BertIntermediate
 )
 
 def match_shape_2d(ls:list, shape_2d:tuple, fill_value=0):
@@ -35,7 +36,7 @@ def set_start_weights(module, initializer_range, extra_modules_without_weights=(
             # Slightly different from the TF version which uses truncated_normal for initialization
             # cf https://github.com/pytorch/pytorch/pull/5617
             m.weight.data.normal_(mean=0.0, std=initializer_range)
-        elif isinstance(m, BertLayerNorm):
+        elif isinstance(m, nn.LayerNorm):
             m.bias.data.zero_()
             m.weight.data.fill_(1.0)
         elif isinstance(m, modules_without_weights):
@@ -46,7 +47,7 @@ def set_start_weights(module, initializer_range, extra_modules_without_weights=(
         if isinstance(m, torch.nn.Linear) and m.bias is not None:
             m.bias.data.zero_()
 
-    for mm in module.modules():
+    for mm in [module]:
         _do_init(mm)
 
 

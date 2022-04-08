@@ -3,10 +3,10 @@ import torch
 import torch.nn as nn
 
 import math
-from .utilities import set_start_weights
+from .Utilities import set_start_weights
 
 
-class MentionPooler(nn.module):
+class MentionPooler(nn.Module):
 
     def __init__(self, dimensions:int):
         super(MentionPooler, self).__init__()
@@ -41,7 +41,7 @@ class MentionPooler(nn.module):
 
 
 
-class MentionRepresenter(nn.module):
+class MentionRepresenter(nn.Module):
 
     def __init__(self, kb, max_mentions):
         super(MentionRepresenter, self).__init__()

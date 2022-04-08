@@ -29,7 +29,7 @@ class TestKB(KnowledgeBase):
 
     def embedd(self, entity_ids):
         # random entity embedding
-        return torch.empty((*entity_ids.size(), self.embedd_dim)).uniform_(-1, 1)
+        return torch.empty((*entity_ids.size(), self.embedding_dimensions)).uniform_(-1, 1)
 
 # sample sentences
 sampleA = "This is a nice coffee spot and the food was tasty too!"

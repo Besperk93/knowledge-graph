@@ -1,12 +1,15 @@
 import torch
 import torch.nn as nn
 
+from transformers import BertConfig
+from KAR.Utilities import set_start_weights, pseudo_inverse, match_shape_2d
+
 import KAR.Recontextualizer as RR
 import KAR.KnowledgeEnhancer as KE
 import KAR.EntityLinker as EL
 import KAR.MentionRepresenter as MR
 
-class KAR(nn.module):
+class KAR(nn.Module):
 
     def __init__(self, kb, bert_config:BertConfig, span_encoder_config:dict, span_attention_config:dict, max_mentions:int, max_mention_span:int, max_candidates:int, threshold:float=None):
 
@@ -25,8 +28,8 @@ class KAR(nn.module):
         self.clear_cache()
 
         # projections from bert to kb and reversed
-        self.bert2kb = nn.Linear(bert_config.hidden_size, kb.embedd_dim)
-        self.kb2bert = nn.Linear(kb.embedd_dim, bert_config.hidden_size)
+        self.bert2kb = nn.Linear(bert_config.hidden_size, kb.embedding_dimensions)
+        self.kb2bert = nn.Linear(kb.embedding_dimensions, bert_config.hidden_size)
 
         # create all modules
         self.mention_span_representer = MR.MentionRepresenter(self.kb, self.max_mentions)

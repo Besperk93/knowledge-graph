@@ -2,11 +2,11 @@ import torch
 import torch.nn as nn
 
 from transformers import BertConfig
-from transformers import BertEncoder
-from .utilities import set_start_weights, extend_mask
+from transformers.models.bert.modeling_bert import BertEncoder
+from .Utilities import set_start_weights, extend_mask
 
 
-class EntityLinker(nn.module):
+class EntityLinker(nn.Module):
 
     def __init__(self, kb, span_encoder_config:BertConfig, hidden_dimensions:int=100):
         super(EntityLinker, self).__init__()
@@ -14,7 +14,7 @@ class EntityLinker(nn.module):
         self.encoder = self._create_span_encoder(kb, span_encoder_config)
         self.score_mlp = nn.Sequential(
             nn.Linear(2, hidden_dimensions),
-            nn.RelU(),
+            nn.ReLU(),
             nn.Linear(hidden_dimensions, 1))
         # NOTE: leaving out eps=1e-5 as it's now the default
         self.candidate_embeddings_ln = nn.LayerNorm(kb.embedding_dimensions)
