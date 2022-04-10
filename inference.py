@@ -12,6 +12,17 @@ class InferencePipeline:
 
     """Loads a trained model into an inference pipeline for extracting entities and relationships from an input doc"""
 
+    def __init__(self):
+        if torch.cuda.is_available():
+            self.CUDA = True
+            self.DEVICE = torch.device('cuda')
+            torch.set_default_tensor_type('torch.cuda.FloatTensor')
+        self.NLP = spacy.load("en_core_web_trf")
+        self.RM = import_relations('Vault/relations.json', 'Vault/relation_ids.json')
+        self.load_model()
+        self.load_model_checkpoint()
+        self.update_model()
+
     def extract_relations(self, doc, detect_entities=True):
         if detect_entities:
             sentences = self.annotate_sentences(doc)
@@ -34,10 +45,11 @@ class InferencePipeline:
         token_type_ids = torch.zeros((tokenized.shape[0], tokenized.shape[1])).long()
 
         # Apply CUDA if available
+        # Note: I'm not sure if this is working. Particularly for inference, everything is running on the CPU
         if self.CUDA:
-            tokenized = tokenized.cuda()
-            attention_mask = attention_mask.cuda()
-            token_type_ids = token_type_ids.cuda()
+            tokenized = tokenized.to(self.DEVICE)
+            attention_mask = attention_mask.to(self.DEVICE)
+            token_type_ids = token_type_ids.to(self.DEVICE)
 
         with torch.no_grad():
             classification_logits = self.NET(tokenized, token_type_ids=token_type_ids, attention_mask=attention_mask, Q=None, e1_e2_start=entity_starts)
@@ -150,6 +162,7 @@ class InferencePipeline:
 
     def update_model(self):
         try:
+            # Note: Can we update the model continuously?
             self.NET.load_state_dict(self.CHECKPOINT['state_dict'])
             start_epoch = self.CHECKPOINT['epoch']
             best_pred = self.CHECKPOINT['best_acc']
@@ -169,7 +182,7 @@ class InferencePipeline:
 
     def load_model(self):
         try:
-            self.NET = Model.from_pretrained("bert-base-uncased", model_size='bert-base-uncased', task='classification', n_classes_=19)
+            self.NET = Model.from_pretrained("bert-base-uncased", model_size='bert-base-uncased', task='classification', n_classes_=19).to(self.DEVICE)
         except Exception as e:
             print(f"Error loading BERT from transformers: {repr(e)}")
             return
@@ -183,16 +196,6 @@ class InferencePipeline:
             return
         try:
             self.NET.resize_token_embeddings(len(self.TOKENIZER))
-            if self.CUDA:
-                self.NET.cuda()
         except Exception as e:
             print(f"Error resizing base model: {repr(e)}")
             return
-
-    def __init__(self):
-        self.CUDA = torch.cuda.is_available()
-        self.NLP = spacy.load("en_core_web_trf")
-        self.RM = import_relations('Vault/relations.json', 'Vault/relation_ids.json')
-        self.load_model()
-        self.load_model_checkpoint()
-        self.update_model()

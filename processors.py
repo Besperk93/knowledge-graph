@@ -19,6 +19,7 @@ class TranscriptProcessor:
                 if len(self.BATCH) == batch_size:
                     self.BATCH_NO += 1
                     self.process(self.BATCH)
+                    self.store_csv()
                     self.BATCH[:] = []
                     self.ROWS[:] = []
                 else:
@@ -56,7 +57,6 @@ class TranscriptProcessor:
                     except Exception as e:
                         pass
                         # print(f"Error processing transcript directory: {repr(e)}")
-            self.store_csv()
         else:
             print(f"Invalid input for process")
             return
@@ -69,6 +69,10 @@ class TranscriptProcessor:
         return
 
     def store_csv(self):
+        if len(self.ROWS) == 0:
+            print(f"Batch Failed: {self.BATCH_NO}")
+            with open(f"Vault/fails/{self.NAME}", 'w') as fail:
+                fail.write(self.BATCH)
         df = pd.DataFrame(self.ROWS, columns=self.COLUMNS)
         df.to_csv(f"{self.OUTPUT}{self.NAME}_data.csv", index=False)
         return self.create_graph(df)
