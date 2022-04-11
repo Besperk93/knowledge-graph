@@ -5,10 +5,10 @@ from functools import wraps
 class KnowledgeBase(ABC):
     """ Abstract base class for knowledge bases/graphs """
 
-    def __init__(self, embedd_dim:int, pad_id:int =-1):
+    def __init__(self, embedding_dimension:int, pad_id:int =-1):
         """ Specify the embedding dimension and the fill value for padding """
         # save values
-        self.embedding_dimensions = embedd_dim
+        self.embedding_dimensions = embedding_dimension
         self.pad_id = pad_id
 
     @property

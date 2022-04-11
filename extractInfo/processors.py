@@ -15,7 +15,7 @@ class TranscriptProcessor:
         self.COLUMNS = ["Video", "Relation", "Entity1", "Entity2"]
         self.ROWS = []
         self.EXTRACTOR = InferencePipeline()
-
+        self.TIME = datetime.now().strftime("%y%m%d_%H-%M")
 
     def batch_process(self, loc, batch_size):
         total_scripts = len([f for f in os.listdir(loc)])
@@ -36,8 +36,7 @@ class TranscriptProcessor:
 
     def process(self, loc):
         if isinstance(loc, list):
-            time = datetime.now().strftime("%y%m%d_%H-%M")
-            self.NAME = f"{time}_batch_{self.BATCH_NO}"
+            self.NAME = f"{self.TIME}_batch_{self.BATCH_NO}"
             for script in tqdm(loc, total=len(loc)):
                 self.TITLE = script.name
                 sentences = self.clean_script(script)
@@ -91,7 +90,7 @@ class TranscriptProcessor:
         if sentences is not None:
             for sentence in sentences:
                 #NOTE: probably worth adding (if len(sentence.split()) > 500: continue)
-                if len(sentence.split()) > 500:
+                if len(sentence.split(' ')) > 500:
                     continue
                 try:
                     predictions = self.EXTRACTOR.extract_relations(sentence)
@@ -104,7 +103,6 @@ class TranscriptProcessor:
                         self.ROWS.append([self.TITLE, rel, e1, e2])
                 except Exception as e:
                     continue
-        return
 
 
     def clean_script(self, script):

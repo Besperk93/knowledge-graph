@@ -5,8 +5,8 @@ import re
 from transformers import BertModel, BertTokenizer
 from utilities import load_pickle, import_relations
 from itertools import permutations
-from Vault.weetee.BERT.modeling_bert import BertModel as Model
-from Vault.weetee.BERT.tokenization_bert import BertTokenizer as Tokenizer
+from .Vault.weetee.BERT.modeling_bert import BertModel as Model
+from .Vault.weetee.BERT.tokenization_bert import BertTokenizer as Tokenizer
 
 class InferencePipeline:
 
@@ -22,6 +22,8 @@ class InferencePipeline:
         self.load_model()
         self.load_model_checkpoint()
         self.update_model()
+        self.INFERENCE = {}
+
 
     def extract_relations(self, doc, detect_entities=True):
         if detect_entities:
@@ -46,10 +48,10 @@ class InferencePipeline:
 
         # Apply CUDA if available
         # Note: I'm not sure if this is working. Particularly for inference, everything is running on the CPU
-        # if self.CUDA:
-        #     tokenized = tokenized.to(self.DEVICE)
-        #     attention_mask = attention_mask.to(self.DEVICE)
-        #     token_type_ids = token_type_ids.to(self.DEVICE)
+        if self.CUDA:
+            tokenized = tokenized.to(self.DEVICE)
+            attention_mask = attention_mask.to(self.DEVICE)
+            token_type_ids = token_type_ids.to(self.DEVICE)
 
         with torch.no_grad():
             classification_logits = self.NET(tokenized, token_type_ids=token_type_ids, attention_mask=attention_mask, Q=None, e1_e2_start=entity_starts)

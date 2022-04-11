@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 # import transformers
 from transformers import GPT2Model
-from transformers.models.gpt2.modeling_gpt2 import GPT2Block
+from transformers.models.gpt2.modeling_gpt2 import GPT2Block, GPT2LMHeadModel
 from transformers.models.bert.modeling_bert import (
     BertEncoder, BertLayer, BertAttention,
     BertSelfAttention, BertSelfOutput, BertOutput,
@@ -16,10 +16,10 @@ from transformers.models.bert.modeling_bert import (
 from transformers.modeling_outputs import BaseModelOutputWithPastAndCrossAttentions
 
 # import configuration
-from config import KnowGPT2Config
+from .config import KnowGPT2Config
 # import kar and knowledge base
-from kar import KAR
-from knowledgeBase import KnowledgeBase, KnowledgeBaseRegistry
+from .kar import KAR
+from .knowledgeBase import KnowledgeBase, KnowledgeBaseRegistry
 
 
 """ KnowBert Encoder """
@@ -294,7 +294,7 @@ class KnowBertEncoder(BertEncoder):
 """ KnowBert Models """
 
 class KnowGPT2Helper(object):
-    """ Define some basic methods that all KnowBert Models should have """
+    """ Define some basic methods that all KnowGPT2 Models should have """
 
     def __init__(self, know_bert_encoder_instance):
         # save encoder instance without pytorch tracking it
@@ -373,7 +373,7 @@ class KnowGPT2Helper(object):
 
 
 class KnowGPT2Model(KnowGPT2Helper, GPT2Model):
-    """ Basic KnowBert Model as discribed in: "Knowledge Enhanced Contextual Word Representations"
+    """ Basic KnowGPT2 Model as discribed in: "Knowledge Enhanced Contextual Word Representations"
         arxiv: https://arxiv.org/pdf/1909.04164.pdf
     """
 
@@ -408,7 +408,7 @@ class KnowGPT2Model(KnowGPT2Helper, GPT2Model):
         # initialize helper
         KnowGPT2Helper.__init__(self, self.encoder)
 
-class KnowBertForPretraining(KnowGPT2Helper, BertForPreTraining):
+class KnowGPT2LMHeadModel(KnowGPT2Helper, GPT2LMHeadModel):
     """ KnowBert for pretraining.
         Basically BertForPreTraining but using KnowBert as model instead of standard BERT.
     """
@@ -419,53 +419,56 @@ class KnowBertForPretraining(KnowGPT2Helper, BertForPreTraining):
     def __init__(self, config):
         # dont call constructor of BertPreTrainingModel
         # but call it's super constructor
-        super(BertForPreTraining, self).__init__(config)
+        super(GPT2LMHeadModel, self).__init__(config)
         # create model and heads
-        self.bert = KnowGPT2Model(config)
-        self.cls = BertPreTrainingHeads(config)
+        self.encoder = KnowBertEncoder(config)
+        self.transformer = GPT2Model(config)
+        self.lm_head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
+        self.model_parallel = False
+        self.device_map = None
         # initialize weights
         self.init_weights()
 
         # initialize helper
-        KnowGPT2Helper.__init__(self, self.bert.encoder)
+        KnowGPT2Helper.__init__(self, self.encoder)
 
-class KnowBertForSequenceClassification(KnowGPT2Helper, BertForSequenceClassification):
-    """ KnowBert for Sequence Classification """
-
-    # set configuration class
-    config_class = KnowGPT2Config
-
-    def __init__(self, config):
-        # initialize super class
-        super(BertForSequenceClassification, self).__init__(config)
-        self.num_labels = config.num_labels
-        # create model
-        self.bert = KnowGPT2Model(config)
-        self.dropout = nn.Dropout(config.hidden_dropout_prob)
-        self.classifier = nn.Linear(config.hidden_size, config.num_labels)
-        # initialize weights
-        self.init_weights()
-
-        # initialize helper
-        KnowGPT2Helper.__init__(self, self.bert.encoder)
-
-
-class KnowBertForTokenClassification(KnowGPT2Helper, BertForTokenClassification):
-    """ KnowBert for Token Classification """
-
-    # set configuration class
-    config_class = KnowGPT2Config
-
-    def __init__(self, config):
-        # initialize super class
-        super(BertForTokenClassification, self).__init__(config)
-        self.num_labels = config.num_labels
-        # create model
-        self.bert = KnowBertModel(config)
-        self.dropout = nn.Dropout(config.hidden_dropout_prob)
-        self.classifier = nn.Linear(config.hidden_size, config.num_labels)
-        # initialize weights
-        self.init_weights()
-
-        # initialize helper
-        KnowGPT2Helper.__init__(self, self.bert.encoder)
+# class KnowBertForSequenceClassification(KnowGPT2Helper, BertForSequenceClassification):
+#     """ KnowBert for Sequence Classification """
+#
+#     # set configuration class
+#     config_class = KnowGPT2Config
+#
+#     def __init__(self, config):
+#         # initialize super class
+#         super(BertForSequenceClassification, self).__init__(config)
+#         self.num_labels = config.num_labels
+#         # create model
+#         self.bert = KnowGPT2Model(config)
+#         self.dropout = nn.Dropout(config.hidden_dropout_prob)
+#         self.classifier = nn.Linear(config.hidden_size, config.num_labels)
+#         # initialize weights
+#         self.init_weights()
+#
+#         # initialize helper
+#         KnowGPT2Helper.__init__(self, self.bert.encoder)
+#
+#
+# class KnowBertForTokenClassification(KnowGPT2Helper, BertForTokenClassification):
+#     """ KnowBert for Token Classification """
+#
+#     # set configuration class
+#     config_class = KnowGPT2Config
+#
+#     def __init__(self, config):
+#         # initialize super class
+#         super(BertForTokenClassification, self).__init__(config)
+#         self.num_labels = config.num_labels
+#         # create model
+#         self.bert = KnowBertModel(config)
+#         self.dropout = nn.Dropout(config.hidden_dropout_prob)
+#         self.classifier = nn.Linear(config.hidden_size, config.num_labels)
+#         # initialize weights
+#         self.init_weights()
+#
+#         # initialize helper
+#         KnowGPT2Helper.__init__(self, self.bert.encoder)

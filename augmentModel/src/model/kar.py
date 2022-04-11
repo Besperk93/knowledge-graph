@@ -2,12 +2,12 @@ import torch
 import torch.nn as nn
 
 from transformers import BertConfig
-from KAR.Utilities import set_start_weights, pseudo_inverse, match_shape_2d
+from src.model.KAR.Utilities import set_start_weights, pseudo_inverse, match_shape_2d
 
-import KAR.Recontextualizer as RR
-import KAR.KnowledgeEnhancer as KE
-import KAR.EntityLinker as EL
-import KAR.MentionRepresenter as MR
+import src.model.KAR.Recontextualizer as RR
+import src.model.KAR.KnowledgeEnhancer as KE
+import src.model.KAR.EntityLinker as EL
+import src.model.KAR.MentionRepresenter as MR
 
 class KAR(nn.Module):
 
