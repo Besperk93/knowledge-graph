@@ -1,5 +1,6 @@
 import re
 import os
+import json
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -8,6 +9,13 @@ from tqdm import tqdm
 from datetime import datetime
 
 class TranscriptProcessor:
+
+    def __init__(self):
+        self.OUTPUT = "Vault/graph/"
+        self.COLUMNS = ["Video", "Relation", "Entity1", "Entity2"]
+        self.ROWS = []
+        self.EXTRACTOR = InferencePipeline()
+
 
     def batch_process(self, loc, batch_size):
         total_scripts = len([f for f in os.listdir(loc)])
@@ -66,13 +74,15 @@ class TranscriptProcessor:
         graph = nx.from_pandas_edgelist(df, source="Entity1", target="Entity2", edge_attr="Relation")
         nx.draw(graph)
         plt.savefig(f"{self.OUTPUT}{self.NAME}_graph.png")
+        graph.clear()
         return
 
     def store_csv(self):
         if len(self.ROWS) == 0:
             print(f"Batch Failed: {self.BATCH_NO}")
-            with open(f"Vault/fails/{self.NAME}", 'w') as fail:
-                fail.write(self.BATCH)
+            with open(f"Vault/fails/{self.NAME}.txt", 'w') as fail:
+                for script in self.BATCH:
+                    fail.write(script.name + '\n')
         df = pd.DataFrame(self.ROWS, columns=self.COLUMNS)
         df.to_csv(f"{self.OUTPUT}{self.NAME}_data.csv", index=False)
         return self.create_graph(df)
@@ -81,6 +91,8 @@ class TranscriptProcessor:
         if sentences is not None:
             for sentence in sentences:
                 #NOTE: probably worth adding (if len(sentence.split()) > 500: continue)
+                if len(sentence.split()) > 500:
+                    continue
                 try:
                     predictions = self.EXTRACTOR.extract_relations(sentence)
                     e1_pattern = re.compile("\[E1\](.*?)\[\/E1\]")
@@ -96,19 +108,18 @@ class TranscriptProcessor:
 
 
     def clean_script(self, script):
+        # TODO: a few transcripts are being passes to the model as long sentences.
         transcript = ""
+        # Strip [voiceover] flag from the start of each script
         pattern = re.compile("^(.*\[.*\]\s)(.*)")
         with open(script, "r") as input:
             for count, line in enumerate(input, start=1):
                 if count % 2 == 0:
-                    line = re.sub(pattern, r'\2', line)
+                    try:
+                        line = re.sub(pattern, r'\2', line)
+                    except:
+                        pass
                     line = line.replace('\n', ' ')
                     transcript += line
         sentences = transcript.split(". ")
         return sentences
-
-    def __init__(self):
-        self.OUTPUT = "Vault/graph/"
-        self.COLUMNS = ["Video", "Relation", "Entity1", "Entity2"]
-        self.ROWS = []
-        self.EXTRACTOR = InferencePipeline()

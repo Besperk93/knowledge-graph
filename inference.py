@@ -46,10 +46,10 @@ class InferencePipeline:
 
         # Apply CUDA if available
         # Note: I'm not sure if this is working. Particularly for inference, everything is running on the CPU
-        if self.CUDA:
-            tokenized = tokenized.to(self.DEVICE)
-            attention_mask = attention_mask.to(self.DEVICE)
-            token_type_ids = token_type_ids.to(self.DEVICE)
+        # if self.CUDA:
+        #     tokenized = tokenized.to(self.DEVICE)
+        #     attention_mask = attention_mask.to(self.DEVICE)
+        #     token_type_ids = token_type_ids.to(self.DEVICE)
 
         with torch.no_grad():
             classification_logits = self.NET(tokenized, token_type_ids=token_type_ids, attention_mask=attention_mask, Q=None, e1_e2_start=entity_starts)
