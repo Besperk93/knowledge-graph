@@ -32,13 +32,11 @@ class MathematicaWithStepsMathDataset(BaseMathDataset):
         Set up self.samples by loading from the dataroot
         """
 
-        all_filenames = glob.iglob(f"{self.dataroot}/**_w_steps/*.txt", recursive=True)
+        all_filenames = glob.iglob(f"{self.dataroot}/**/*.txt", recursive=True)
 
-        print(f"{self.__class__.__name__}: Loading samples from {len(all_filenames)} files.")
+        print(f"{self.__class__.__name__}: Loading samples from generator.")
         samples_raw = []
         for fname in tqdm(all_filenames):
-            fname = fname.rstrip()
-            fname = os.path.join(os.path.dirname(os.path.dirname(self.dataroot)), fname[2:])
             with open(fname, 'r') as fp:
                 question = ""
                 answers  = []

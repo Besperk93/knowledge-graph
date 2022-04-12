@@ -11,7 +11,7 @@ from .tripleStore import TripleStore
 @KnowledgeBaseRegistry.instance.register('khangraph')
 class KhanGraph(KnowledgeBase):
 
-    def __init__(self, embedding_path="/home/besperk/Code/knowledge-graph/augmentModel/src/knowledge/bin", data_path="../Vault/working-graph/"):
+    def __init__(self, embedding_path="/home/besperk/Code/knowledge-graph/augmentModel/src/knowledge/bin/", data_path="/home/besperk/Code/knowledge-graph/Vault/working-graph/"):
         super(KhanGraph, self).__init__(embedding_dimension=200)
         # Create embedded knowledge
         self.embedder = EmbeddedKnowledge(self.embedding_dimensions, self.pad_id)

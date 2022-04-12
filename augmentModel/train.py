@@ -39,7 +39,7 @@ def load_data(dataroot, multiplier):
             tokenizer=tokenizer,
             max_tokens=1024,
             mode='gpt2',
-            len_multiplier=len_multiplier * 0.1))
+            len_multiplier=multiplier * 0.01))
 
     # NOTE: For now just looking at the khan problem set
     return torch.utils.data.ConcatDataset(train_data)
@@ -223,27 +223,15 @@ def main():
     main_device = 'cuda:0'
     base_model = "gpt2"
     load = "/home/besperk/Code/math/checkpoints/TEMP/04-07-2022__00:57:11/final_checkpoint/"
-    data_path = "datasets/"
+    data_path = "/home/besperk/Code/knowledge-graph/Vault/working-graph/"
     data_root = "/home/besperk/Code/MATH-Data/amps/"
-    dump_path = "/home/besperk/Code/knowledge-graph/Vault/know_gpt2_output"
-    epochs = 1
-    lr = 5e-5
-    weight_decay = 0.05
-    lr_warmup_steps = -1
-    batch_size_per_replica = 2
-    gradient_accumulation_steps = 16
-    local_rank = -1
-    batch_size = 64
-    max_grad_norm = 1.0
-    warmup_portion = 0.01
-    entropy_coeff = 0.01
     multiplier = 1
 
     print("Loading Model... (%s)" % base_model)
 
     # Prepare Model
     model = KnowGPT2LMHeadModel.from_pretrained(load)
-    kb = model.add_kb(10, KhanGraph(data_path="/home/besperk/Code/knowledge-graph/Vault/know_gpt2_output"))
+    kb = model.add_kb(10, KhanGraph(data_path=data_path))
     model.freeze_layers(10)
     model.to(main_device)
 

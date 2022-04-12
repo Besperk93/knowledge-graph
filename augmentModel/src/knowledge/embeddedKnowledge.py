@@ -25,6 +25,7 @@ class EmbeddedKnowledge:
         return self.embedding(ids)
 
     def load_embedding(self, path):
+        print(f"Loading graph embedding from: {path}")
         # Load a trained embedding from a file
         with open(os.path.join(path, "embedding_words.txt"), 'r') as embedding_words:
             words = embedding_words.read().split('\n')
