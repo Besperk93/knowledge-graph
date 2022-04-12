@@ -39,7 +39,7 @@ def load_data(dataroot, multiplier):
             tokenizer=tokenizer,
             max_tokens=1024,
             mode='gpt2',
-            len_multiplier=len_multiplier * 0.1)
+            len_multiplier=len_multiplier * 0.1))
 
     # NOTE: For now just looking at the khan problem set
     return torch.utils.data.ConcatDataset(train_data)
