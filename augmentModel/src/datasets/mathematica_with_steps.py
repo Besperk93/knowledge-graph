@@ -13,12 +13,12 @@ import io
 from tqdm import tqdm
 import os
 
-from dataset.util import last_boxed_only, _clean_numbers, last_boxed_only_string
+from src.datasets.util import last_boxed_only, _clean_numbers, last_boxed_only_string
 
 from multiprocessing import Manager
 
 from torch.multiprocessing import Pool
-from dataset.base_math_dataset import BaseMathDataset
+from src.datasets.base_math_dataset import BaseMathDataset
 
 class MathematicaWithStepsMathDataset(BaseMathDataset):
     """Configurable Math Dataset.
