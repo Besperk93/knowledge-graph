@@ -7,6 +7,7 @@ from pynvml import *
 # import knowledge bases
 from src.knowledge.khangraph import KhanGraph
 from src.datasets.khan_academy import KhanAcademyMathDataset
+from src.datasets.mathematica_with_steps import MathematicaWithStepsMathDataset
 # utils
 import os
 import glob
@@ -19,26 +20,29 @@ def load_data(dataroot, multiplier):
 
     tokenizer = get_tokenizer_gpt()
 
-    train_data = KhanAcademyMathDataset(
-            dataroot=dataroot,
+    train_data = []
+
+    khan_root = dataroot + "khan"
+    wolf_root = dataroot + "mathematica"
+
+    train_data.append(KhanAcademyMathDataset(
+            dataroot=khan_root,
             tokenizer=tokenizer,
             max_tokens=1024,
             mode='gpt2',
             mode_answer='mixed_hints',
             len_multiplier=multiplier,
-            latex_mask=False)
+            latex_mask=False))
 
-    # test_data = KhanAcademyMathDataset(
-    #         dataroot=dataroot,
-    #         tokenizer=tokenizer,
-    #         max_tokens=1024,
-    #         mode='gpt2',
-    #         mode_answer='mixed_hints',
-    #         len_multiplier=multiplier * 0.1,
-    #         latex_mask=False)
+    train_data.append(MathematicaWithStepsMathDataset(
+            dataroot=wolf_root,
+            tokenizer=tokenizer,
+            max_tokens=1024,
+            mode='gpt2',
+            len_multiplier=len_multiplier * 0.1)
 
     # NOTE: For now just looking at the khan problem set
-    return train_data
+    return torch.utils.data.ConcatDataset(train_data)
 
 def get_tokenizer_gpt():
     tokenizer = transformers.GPT2Tokenizer.from_pretrained('gpt2')
@@ -220,7 +224,7 @@ def main():
     base_model = "gpt2"
     load = "/home/besperk/Code/math/checkpoints/TEMP/04-07-2022__00:57:11/final_checkpoint/"
     data_path = "datasets/"
-    data_root = "/home/besperk/Code/MATH-Data/amps/khan"
+    data_root = "/home/besperk/Code/MATH-Data/amps/"
     dump_path = "/home/besperk/Code/knowledge-graph/Vault/know_gpt2_output"
     epochs = 1
     lr = 5e-5
