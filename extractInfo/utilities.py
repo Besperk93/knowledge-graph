@@ -4,6 +4,8 @@ import re
 import json
 from itertools import permutations
 
+
+
 def load_pickle(filename):
     """load data pickle from data directory"""
     with open(filename, 'rb') as pkl_file:
