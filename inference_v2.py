@@ -3,10 +3,10 @@ import torch
 import os
 import re
 from transformers import BertModel, BertTokenizer
-from utilities import load_pickle, import_relations
+from extractInfo.src.utilities import load_pickle, import_relations
 from itertools import permutations
-from .Vault.weetee.BERT.modeling_bert import BertModel as Model
-from .Vault.weetee.BERT.tokenization_bert import BertTokenizer as Tokenizer
+from Vault.weetee.BERT.modeling_bert import BertModel as Model
+from Vault.weetee.BERT.tokenization_bert import BertTokenizer as Tokenizer
 from knowledgeObject2 import KnowledgeObject
 
 class InferencePipeline:
@@ -30,8 +30,8 @@ class InferencePipeline:
             objs = []
             for obj in annotated_objs:
                 # NOTE: sent contains an annotated entity sentence, can parse POS for each sent
-                obj.REL = self.extract_one_relation(obj.MENTION)
-                preds.append(pred)
+                obj.REL = self.extract_one_relation(obj.MENTION)[-1]
+                objs.append(obj)
             return objs
 
     def annotate_sentences(self, input):

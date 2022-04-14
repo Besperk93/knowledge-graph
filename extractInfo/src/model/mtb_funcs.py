@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 
 
-
 class Two_Headed_Loss(nn.Module):
     '''
     Implements LM Loss and matching-the-blanks loss concurrently

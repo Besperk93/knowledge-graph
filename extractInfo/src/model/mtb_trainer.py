@@ -1,17 +1,26 @@
-from transformers import Trainer, TrainingArguments, TrainOutput, BertModel
-from mtb_model import Two_Headed_Loss, evaluate_
-from preprocessing_funcs import load_dataloaders
-from .utilities import save_as_pickle, load_pickle
+from transformers import Trainer, TrainingArguments, BertModel
+from src.model.mtb_funcs import Two_Headed_Loss, evaluate_
+from src.model.dataset import load_dataloaders
+from src.utilities import save_as_pickle, load_pickle
 import torch
 import torch.nn as nn
+from tqdm import tqdm
+import logging
 
+tqdm.pandas(desc="prog_bar")
+logging.basicConfig(format='%(asctime)s [%(levelname)s]: %(message)s', \
+                    datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
+logger = logging.getLogger('__file__')
 
 class MTBTrainer(Trainer):
 
-    def __init__(self, config):
+    def __init__(self, model, args, tokenizer, data_path):
         # Handle the init for parent class plus any extras
-        super(MTBTrainer, self).__init__(*config)
-        self.training_args = config.args
+        self.training_args = args
+        self.model = model
+        self.tokenizer = tokenizer
+        self.data_path = data_path
+        # super(MTBTrainer, self).__init__(self.training_args)
         # Extras
         self.accuracy_per_epoch = []
         self.loss_per_epoch = []
@@ -26,7 +35,11 @@ class MTBTrainer(Trainer):
 
         # Get Dataloaders
         # [Trainer] train_dataloader = self.get_train_dataloader()
-        train_loader = load_dataloaders(args)
+        try:
+            train_loader = load_dataloaders(args, self.data_path)
+        except Exception as e:
+            print(f"Error loading dataset: {repr(e)}")
+            return
         train_len = len(train_loader)
         logger.info("Loaded %d pre-training samples." % train_len)
 
@@ -60,8 +73,8 @@ class MTBTrainer(Trainer):
         criterion = Two_Headed_Loss(lm_ignore_idx=tokenizer.pad_token_id, use_logits=True, normalize=False)
 
         # Get optimizer and lr_scheduler
-        optimizer = self.optimizer
-        scheduler = self.lr_scheduler
+        optimizer = args.optimizer
+        scheduler = args.lr_scheduler
 
         start_epoch, best_pred, amp_checkpoint = self.load_state(net, optimizer, scheduler, 0, load_best=False)
 

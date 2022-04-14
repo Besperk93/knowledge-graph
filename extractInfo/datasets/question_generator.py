@@ -12,12 +12,12 @@ class questionGenerator:
         self.SUB_OPERATORS = ["-", "subtract", "minus", "reduced by"]
         self.DIV_OPERATORS = ["/", "divide by", "split into"]
         self.MUL_OPERATORS = ["*", "x", "multiplied by", "times by"]
-        self.EQUALITY_OPERATORS = ["=", "equals", "becomes", "results in", "leads to"]
+        self.EQUALITY_OPERATORS = ["=", "equals", "becomes", "results in", "leads to", "produces"]
         self.ANNOTATED = annotated
         if annotated:
-            self.OUTPUT = os.path.join(output_loc, "numeracy_annotated.txt")
+            self.OUTPUT = os.path.join(output_loc, "numeracy_test_annotated.txt")
         else:
-            self.OUTPUT = os.path.join(output_loc, "numeracy.txt")
+            self.OUTPUT = os.path.join(output_loc, "numeracy_pretrain.txt")
 
     def save_questions(self):
         with open(self.OUTPUT, 'w') as output:
@@ -52,11 +52,11 @@ class questionGenerator:
                 list.append(a)
             answer = max(list)
             if self.ANNOTATED:
-                equation = f"The minimum value of <e1>{list}</e1> is <e2>{answer}</e2>"
+                equation = f"The maximum value of <e1>{list}</e1> is <e2>{answer}</e2>"
                 relation = "Object-Attribute(e1, e2)"
                 self.QUESTIONS.append((equation, relation))
             else:
-                equation = f"The minimum value of {list} is {answer}. "
+                equation = f"The maximum value of {list} is {answer}. "
                 self.QUESTIONS.append(equation)
 
 
@@ -137,5 +137,5 @@ class questionGenerator:
 
 
 
-generator = questionGenerator(100000, 100, "extractInfo/datasets/")
+generator = questionGenerator(10000, 100, "extractInfo/datasets/")
 generator.generate()

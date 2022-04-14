@@ -93,10 +93,12 @@ class TranscriptProcessor:
                 try:
                     # predictions refers to a (mention, relation) tuple
                     objects = self.EXTRACTOR.extract_relations(sentence)
-                    e1_pattern = re.compile("\[E1\](.*?)\[\/E1\]")
-                    e2_pattern = re.compile("\[E2\](.*?)\[\/E2\]")
+                    # e1_pattern = re.compile("\[E1\](.*?)\[\/E1\]")
+                    # e2_pattern = re.compile("\[E2\](.*?)\[\/E2\]")
                     for obj in objects:
-                        self.ROWS.append(obj.as_row())
+                        row = obj.as_row()
+                        row.insert(0, self.TITLE)
+                        self.ROWS.append(row)
                 except Exception as e:
                     continue
 
@@ -112,7 +114,9 @@ class TranscriptProcessor:
 
     def create_graph(self, df):
         graph = nx.from_pandas_edgelist(df, source="Entity1", target="Entity2", edge_attr="Relation")
-        nx.draw(graph)
+        plt.figure(figsize=(50,50))
+        nx.draw(graph, node_size=20, with_labels=True, font_size=8)
         plt.savefig(f"{self.OUTPUT}{self.NAME}_graph.png")
         graph.clear()
+        plt.clf()
         return

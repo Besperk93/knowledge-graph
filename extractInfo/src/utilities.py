@@ -47,7 +47,7 @@ def get_subject_objects(sent_):
         for a, b in permutations([subject] + [obj for obj in objs], 2):
             a_ = [w for w in a.subtree]
             b_ = [w for w in b.subtree]
-            pairs.append((a_[0] if (len(a_) == 1) else a_, b_[0] if (len(_b) == 1) else b_))
+            pairs.append((a_[0] if (len(a_) == 1) else a_, b_[0] if (len(b_) == 1) else b_))
 
     return pairs
 
