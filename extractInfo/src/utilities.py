@@ -13,7 +13,7 @@ def load_pickle(filename):
     return data
 
 
-def save_data_pickle(filename, data):
+def save_as_pickle(filename, data):
     """save data as a pickle file"""
     with open(f".Vault/data/{filename}", 'wb') as output:
         pickle.dump(data, output)

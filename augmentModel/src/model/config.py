@@ -32,7 +32,7 @@ class KnowGPT2Config(GPT2Config):
         pretrained_model_name_or_path=None,
         **kwargs):
 
-        # initialize bert config from super class:
+        # initialize gpt2 config from super class:
         GPT2Config.__init__(self,
             vocab_size=vocab_size,
             n_positions=n_positions,
