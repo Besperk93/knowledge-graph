@@ -4,15 +4,15 @@ import json
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
-from inference import InferencePipeline
+from inference_v2 import InferencePipeline
 from tqdm import tqdm
 from datetime import datetime
 
 class TranscriptProcessor:
 
     def __init__(self):
-        self.OUTPUT = "Vault/graph/"
-        self.COLUMNS = ["Video", "Relation", "Entity1", "Entity2"]
+        self.OUTPUT = "./Vault/testGraph/"
+        self.COLUMNS = ["Video", "Relation", "Entity1", "Entity2", "Pos1", "Pos2", "Label1", "Label2"]
         self.ROWS = []
         self.EXTRACTOR = InferencePipeline()
         self.TIME = datetime.now().strftime("%y%m%d_%H-%M")
@@ -41,13 +41,11 @@ class TranscriptProcessor:
                 self.TITLE = script.name
                 sentences = self.clean_script(script)
                 self.extract_relations(sentences)
-            # self.store_csv()
         elif (isinstance(loc, str)) and (os.path.isfile(loc)):
                 self.NAME = re.search(r"^.*\/(.*)\.txt$", loc).group(1)
                 self.TITLE = re.search(r"^.*\/(.*)\.txt$", loc).group(1)
                 sentences = self.clean_script(loc)
                 self.extract_relations(sentences)
-                # self.store_csv()
         elif (isinstance(loc, str)) and (os.path.isdir(loc)):
             try:
                 self.NAME = re.search(r".*\/([A-z0-9]*)$", loc).group(1)
@@ -94,14 +92,11 @@ class TranscriptProcessor:
                     continue
                 try:
                     # predictions refers to a (mention, relation) tuple
-                    predictions = self.EXTRACTOR.extract_relations(sentence)
+                    objects = self.EXTRACTOR.extract_relations(sentence)
                     e1_pattern = re.compile("\[E1\](.*?)\[\/E1\]")
                     e2_pattern = re.compile("\[E2\](.*?)\[\/E2\]")
-                    for result in predictions:
-                        e1 = re.search(e1_pattern, result[0]).group(1)
-                        e2 = re.search(e2_pattern, result[0]).group(1)
-                        rel = result[-1]
-                        self.ROWS.append([self.TITLE, rel, e1, e2])
+                    for obj in objects:
+                        self.ROWS.append(obj.as_row())
                 except Exception as e:
                     continue
 

@@ -35,6 +35,7 @@ class InferencePipeline:
                     preds.append(pred)
                 return preds
         else:
+            # This doesn't even work, sentence is undefined?
             return self.extract_one_relation(sentence)
 
     def extract_one_relation(self, mention):

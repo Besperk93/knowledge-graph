@@ -1,11 +1,11 @@
 
 class KnowledgeObject:
 
-    """Graph compatable knowldege object"""
+    """Graph compatable knowldege object - WIP"""
 
-    def __init__(self, name):
+    def __init__(self):
         self.ID = None
-        self.NAME = name
+        self.NAME = None
         self.POS = None
         self.LABEL = []
         self.RELATIONS = {}
@@ -13,6 +13,13 @@ class KnowledgeObject:
 
     def save_object(self):
         pass
+
+
+    def add_entity(self, rel, e2):
+        if self.RELATIONS.get(rel):
+            self.RELATIONS.get(rel).append(e2)
+        else:
+            self.RELATIONS[rel] = [e2]
 
     def get_links(self, e_filter=None, r_filter=None):
         if e_filter:
@@ -33,4 +40,5 @@ class KnowledgeObject:
         return neighbours
 
     def embedding(self, dimensions):
+        # What if we could store the embedding within each object? Does that make sense?
         pass
