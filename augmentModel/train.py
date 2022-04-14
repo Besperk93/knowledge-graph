@@ -25,6 +25,9 @@ def load_data(dataroot, multiplier):
     khan_root = dataroot + "khan"
     wolf_root = dataroot + "mathematica"
 
+    khan_multiplier = multiplier
+    wolf_multiplier = multiplier * 0.1
+
     train_data.append(KhanAcademyMathDataset(
             dataroot=khan_root,
             tokenizer=tokenizer,
@@ -160,7 +163,7 @@ def run_training(train_data, model):
     print(f"Setting up Trainer")
 
     training_args = transformers.TrainingArguments(
-        output_dir="/home/besperk/Code/knowledge-graph/Vault/know_gpt2_output",
+        output_dir="/home/besperk/Code/knowledge-graph/Vault/know_gpt2_output/",
         overwrite_output_dir=False,
 
         do_train=True,
@@ -179,7 +182,7 @@ def run_training(train_data, model):
         warmup_steps=-1,
         max_grad_norm=100000.0, # Essentially disable gradient clipping
 
-        logging_dir="/home/besperk/Code/knowledge-graph/Vault/know_gpt2_output",
+        logging_dir="/home/besperk/Code/knowledge-graph/Vault/know_gpt2_output/",
         logging_first_step=True,
         logging_steps=5,
         save_steps=save_steps,
@@ -211,7 +214,7 @@ def run_training(train_data, model):
     print(f"STARTING TRAINING. save_steps={save_steps}")
     trainer.train()
 
-    trainer.save_model(os.path.join("/home/besperk/Code/knowledge-graph/Vault/know_gpt2_output", "final_checkpoint"))
+    trainer.save_model(os.path.join("/home/besperk/Code/knowledge-graph/Vault/know_gpt2_output/", "final_checkpoint"))
     print("Finished")
 
 

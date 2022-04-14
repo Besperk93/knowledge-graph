@@ -82,7 +82,7 @@ class EmbeddedKnowledge:
         return results
 
 
-    def save_embedding(self, output_loc):
+    def save(self, output_loc):
         # Save embedding for reuse
         with open(os.path.join(output_loc, "embedding_weights.bin"), 'wb') as weights_bin:
             pickle.dump(self.embedding, weights_bin)
@@ -107,4 +107,4 @@ if __name__ == '__main__':
         print(metric.ljust(30, ' '), value)
 
     print("Saving Embedding...")
-    embedding.save_embedding("/home/besperk/Code/knowledge-graph/augmentModel/src/knowledge/bin/")
+    embedding.save("/home/besperk/Code/knowledge-graph/augmentModel/src/knowledge/bin/")

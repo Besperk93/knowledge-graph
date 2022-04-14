@@ -366,10 +366,13 @@ class KnowGPT2Helper(object):
         """ prepare all knowledge bases for next forward pass """
         return self._knowbert_encoder.prepare_kbs(tokens)
 
-    def save_pretrained(self, save_directory:str):
+    def save_pretrained(self, save_directory:str, state_dict):
         # save model and knowledge bases
         super().save_pretrained(save_directory)
         self.save_kbs(save_directory)
+        torch.save(state_dict, save_directory)
+
+
 
 
 class KnowGPT2Model(KnowGPT2Helper, GPT2Model):
