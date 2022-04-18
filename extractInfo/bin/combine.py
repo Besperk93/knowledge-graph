@@ -2,11 +2,11 @@ import os
 import random
 import re
 
-base_path = "./Vault/data/mtb_training/"
+
 
 def combine_raw(loc1, loc2):
     """Combine the raw cnn pretraining data with the generated questions"""
-
+    base_path = "./Vault/mtb/output/"
     with open(os.path.join(base_path, loc1), 'r') as loc1:
         data1 = loc1.read()
 
@@ -18,14 +18,11 @@ def combine_raw(loc1, loc2):
     with open(os.path.join(base_path, "combined_train.txt"), 'w') as out_file:
         out_file.write(combined)
 
-# combine_raw('cnn.txt', 'numeracy_pretrain.txt')
 
-
-base_path = "./Vault/data/mtb_eval/"
 
 def combine_annotated(loc1, loc2):
     """combined the annoated questions with the semeval data"""
-
+    base_path = "./Vault/mtb/eval/"
     with open(os.path.join(base_path, loc1), 'r') as loc1:
         data1 = loc1.read()
 
@@ -42,5 +39,3 @@ def combine_annotated(loc1, loc2):
     with open(os.path.join(base_path, "combined_eval.txt"), 'w') as out_file:
         for item in re_indexed:
             out_file.write(item + "\n\n")
-
-combine_annotated("numeracy_test_annotated.txt", "semeval2010_task8/TRAIN_FILE.TXT")

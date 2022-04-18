@@ -42,7 +42,7 @@ class infer_from_trained(object):
         # NOTE: Removed entities of interest list
 
         logger.info("Loading tokenizer and model...")
-        from .train_funcs import load_state
+        from .task_funcs import load_state
 
         # NOTE: only need the BERT settings
         from ..model.BERT.modeling_bert import BertModel as Model

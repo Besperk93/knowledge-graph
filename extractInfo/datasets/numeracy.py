@@ -1,6 +1,79 @@
 import numpy as np
 import random
 import os
+import re
+
+
+
+def combine_raw(loc1, loc2):
+    """Combine the raw cnn pretraining data with the generated questions"""
+    base_path = "./Vault/mtb/output/"
+    with open(os.path.join(base_path, loc1), 'r') as loc1:
+        data1 = loc1.read()
+
+    with open(os.path.join(base_path, loc2), 'r') as loc2:
+        data2 = loc2.read()
+
+    combined = data1 + data2
+
+    with open(os.path.join(base_path, "combined_train.txt"), 'w') as out_file:
+        out_file.write(combined)
+
+
+
+def combine_annotated(loc1, loc2):
+    """combined the annoated questions with the semeval data"""
+    base_path = "./Vault/mtb/eval/"
+    with open(os.path.join(base_path, loc1), 'r') as loc1:
+        data1 = loc1.read()
+
+    with open(os.path.join(base_path, loc2), 'r') as loc2:
+        data2 = loc2.read()
+
+    pattern = re.compile(r"^([0-9]+).*")
+    lines = data1.split("\n\n") + data2.split("\n\n")
+    len1 = len(lines)
+    random.shuffle(lines)
+    # print(lines[:3])
+    re_indexed = [re.sub(r"^[0-9]+", str(i + 1), line) for i, line in enumerate(lines)]
+    # print(re_indexed[:3])
+    print(f"First length: {len1}\nSecond length:{len(re_indexed)}")
+
+    with open(os.path.join(base_path, "combined_eval.txt"), 'w') as out_file:
+        for item in re_indexed:
+            out_file.write(item + "\n\n")
+
+
+def split_annotated(alpha):
+    """Split the combined annotated dataset into train/test"""
+    # Alpha of 0.8 would result in an 80/20 train/test split
+    assert isinstance(alpha, float)
+    assert alpha < 1.0
+
+    base_path = "./Vault/mtb/eval"
+    with open(os.path.join(base_path, "combined_eval.txt"), 'r') as combined:
+        full = combined.read()
+
+    rows = full.split("\n\n")
+    print(len(rows))
+    # Check for empty rows
+    rows = [row for row in rows if row != ""]
+    re_indexed = [re.sub(r"^[0-9]+", str(i + 1), row) for i, row in enumerate(rows)]
+    print(len(re_indexed))
+    # Should already be shuffled but shuffle again in case txt has been altered
+    # random.shuffle(rows)
+    split = int(alpha * len(re_indexed))
+    train = [row for row in re_indexed[:split]]
+    test = [row for row in re_indexed[split:]]
+
+    assert len(test) + len(train) == len(rows)
+    print(f"Test: {len(test)}, Train: {len(train)}, Total: {len(rows)}")
+    with open(os.path.join(base_path, "combined_train.txt"), 'w') as out:
+        for item in train:
+            out.write(item + "\n\n")
+    with open(os.path.join(base_path, "combined_test.txt"), 'w') as out:
+        for item in test:
+            out.write(item + "\n\n")
 
 
 class questionGenerator:
@@ -16,9 +89,9 @@ class questionGenerator:
         self.EQUALITY_OPERATORS = ["=", "equals", "becomes", "results in", "leads to", "produces"]
         self.ANNOTATED = annotated
         if annotated:
-            self.OUTPUT = os.path.join(output_loc, "numeracy_test_annotated.txt")
+            self.OUTPUT = os.path.join(output_loc, "eval/numeracy_test_annotated.txt")
         else:
-            self.OUTPUT = os.path.join(output_loc, "numeracy_pretrain.txt")
+            self.OUTPUT = os.path.join(output_loc, "output/numeracy_pretrain.txt")
 
     def save_questions(self):
         with open(self.OUTPUT, 'w') as output:
@@ -170,5 +243,8 @@ class questionGenerator:
 
 
 
-generator = questionGenerator(10000, 100, "extractInfo/datasets/", True)
+generator = questionGenerator(2000, 100, "./Vault/mtb/", True)
 generator.generate()
+combine_annotated("semeval2010_task8/TRAIN_FILE.TXT", "semeval2010_task8/SemEval2010_task8_testing_keys/TEST_FILE_FULL.TXT")
+combine_annotated("numeracy_test_annotated.txt", "combined_eval.txt")
+split_annotated(0.8)

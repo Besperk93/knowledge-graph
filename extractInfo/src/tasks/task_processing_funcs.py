@@ -14,6 +14,7 @@ import json
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torch.nn.utils.rnn import pad_sequence
+
 from ..utilities import save_as_pickle, load_pickle
 from tqdm import tqdm
 import logging
@@ -26,20 +27,26 @@ logger = logging.getLogger('__file__')
 def process_text(text, mode='train'):
     sents, relations, comments, blanks = [], [], [], []
     for i in range(int(len(text)/4)):
+        # Get the sent line (starts at 0)
         sent = text[4*i]
+        # Get the relation
         relation = text[4*i + 1]
+        # Get the comment
         comment = text[4*i + 2]
+        # Get the blank
         blank = text[4*i + 3]
 
         # check entries
+        # NOTE: Comment out this as our extended dataset breaches these assertions
         if mode == 'train':
             assert int(re.match("^\d+", sent)[0]) == (i + 1)
         else:
-            assert (int(re.match("^\d+", sent)[0]) - 8000) == (i + 1)
+            # print(sent)
+            assert (int(re.match("^\d+", sent)[0]) - 18173) == (i + 1)
         assert re.match("^Comment", comment)
         assert len(blank) == 1
 
-        sent = re.findall("\"(.+)\"", sent)[0]
+        sent = re.findall('\"(.+)\"', sent)[0]
         sent = re.sub('<e1>', '[E1]', sent)
         sent = re.sub('</e1>', '[/E1]', sent)
         sent = re.sub('<e2>', '[E2]', sent)
@@ -207,10 +214,10 @@ def preprocess_fewrel(args, do_lower_case=True):
                 labels.append(relation)
         return sents, labels
 
-    with open('./Vault/mtb/mtb_eval/fewrel/train_wiki.json') as f:
+    with open('./Vault/mtb/eval/fewrel/train_wiki.json') as f:
         train_data = json.load(f)
 
-    with  open('./Vault/mtb/mtb_eval/fewrel/val_wiki.json') as f:
+    with  open('./Vault/mtb/eval/fewrel/val_wiki.json') as f:
         test_data = json.load(f)
 
     train_sents, train_labels = process_data(train_data)
@@ -313,11 +320,11 @@ def load_dataloaders(args):
     assert e1_id != e2_id != 1
 
     if args.task == 'semeval':
-        relations_path = './Vault/mtb/output/relations.pkl'
+        relations_path = './Vault/mtb/output/semeval_relations.pkl'
         train_path = './Vault/mtb/output/df_train.pkl'
         test_path = './Vault/mtb/output/df_test.pkl'
         if os.path.isfile(relations_path) and os.path.isfile(train_path) and os.path.isfile(test_path):
-            rm = load_pickle('relations.pkl')
+            rm = load_pickle('semeval_relations.pkl')
             df_train = load_pickle('df_train.pkl')
             df_test = load_pickle('df_test.pkl')
             logger.info("Loaded preproccessed data.")

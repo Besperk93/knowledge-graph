@@ -21,7 +21,7 @@ logger = logging.getLogger('__file__')
 if __name__ == "__main__":
     parser = ArgumentParser()
 
-    parser.add_argument("--pretrain_data", type=str, default="./Vault/mtb/mtb_training/combined_train.txt", \
+    parser.add_argument("--pretrain_data", type=str, default="./Vault/mtb/output/combined_train.txt", \
                         help="pre-training data .txt file path")
     parser.add_argument("--batch_size", type=int, default=8, help="Training batch size")
     parser.add_argument("--gradient_acc_steps", type=int, default=8, help="No. of steps of gradient accumulation")

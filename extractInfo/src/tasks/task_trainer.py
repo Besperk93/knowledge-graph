@@ -11,75 +11,18 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.nn.utils import clip_grad_norm_
 from .task_funcs import load_state, load_results, evaluate_, evaluate_results
+from .task_processing_funcs import preprocess_fewrel, preprocess_semeval2010_8, semeval_dataset, Pad_Sequence, load_dataloaders
 from ..utilities import save_as_pickle, load_pickle
 import matplotlib.pyplot as plt
 import time
 import logging
 # NOTE: Get rid of alternative models as just using Bert, which can be imported from transformers directly
-from transformers import BertModel, BertTokenizer
+from src.model.BERT.modeling_bert import BertModel
 
 logging.basicConfig(format='%(asctime)s [%(levelname)s]: %(message)s', \
                     datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
 logger = logging.getLogger(__file__)
 
-######### DataLoaders #########
-
-def load_dataloaders(args):
-
-    model = 'bert-base-uncased'
-    lower_case = True
-    model_name = 'BERT'
-
-    # NOTE: Check to see id there's a saved tokenizer to use
-    if os.path.isfile("./Vault/mtb/output/%s_tokenizer.pkl" % model_name):
-        tokenizer = load_pickle("%s_tokenizer.pkl" % model_name)
-        logger.info("Loaded tokenizer from pre-trained blanks model")
-    else:
-        logger.info("Pre-trained blanks tokenizer not found, initializing new tokenizer...")
-        tokenizer = BertTokenizer.from_pretrained(model, do_lower_case=False)
-        # NOTE: Add Match The Blank special tokens
-        tokenizer.add_tokens(['[E1]', '[/E1]', '[E2]', '[/E2]', '[BLANK]'])
-        # NOTE: Save the tokenizer to be used again
-        save_as_pickle("%s_tokenizer.pkl" % model_name, tokenizer)
-        logger.info("Saved %s tokenizer at ./Vault/mtb/output/%s_tokenizer.pkl" %(model_name, model_name))
-
-    e1_id = tokenizer.convert_tokens_to_ids('[E1]')
-    e2_id = tokenizer.convert_tokens_to_ids('[E2]')
-    assert e1_id != e2_id != 1
-
-    if args.task == 'semeval':
-        relations_path = './Vault/mtb/output/relations.pkl'
-        train_path = './Vault/mtb/output/df_train.pkl'
-        test_path = './Vault/mtb/output/df_test.pkl'
-        if os.path.isfile(relations_path) and os.path.isfile(train_path) and os.path.isfile(test_path):
-            rm = load_pickle('relations.pkl')
-            df_train = load_pickle('df_train.pkl')
-            df_test = load_pickle('df_test.pkl')
-            logger.info("Loaded preproccessed data.")
-        else:
-            df_train, df_test, rm = preprocess_semeval2010_8(args)
-
-        train_set = semeval_dataset(df_train, tokenizer=tokenizer, e1_id=e1_id, e2_id=e2_id)
-        test_set = semeval_dataset(df_test, tokenizer=tokenizer, e1_id=e1_id, e2_id=e2_id)
-        train_length = len(train_set); test_length = len(test_set)
-        PS = Pad_Sequence(seq_pad_value=tokenizer.pad_token_id,\
-                          label_pad_value=tokenizer.pad_token_id,\
-                          label2_pad_value=-1)
-        train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, \
-                                  num_workers=0, collate_fn=PS, pin_memory=False)
-        test_loader = DataLoader(test_set, batch_size=args.batch_size, shuffle=True, \
-                                  num_workers=0, collate_fn=PS, pin_memory=False)
-    elif args.task == 'fewrel':
-        df_train, df_test = preprocess_fewrel(args, do_lower_case=lower_case)
-        train_loader = fewrel_dataset(df_train, tokenizer=tokenizer, seq_pad_value=tokenizer.pad_token_id,
-                                      e1_id=e1_id, e2_id=e2_id)
-        train_length = len(train_loader)
-        test_loader, test_length = None, None
-
-    return train_loader, test_loader, train_length, test_length
-
-
-######### Traniner #########
 
 def train_and_fit(args):
 
@@ -97,11 +40,11 @@ def train_and_fit(args):
     logger.info("Loaded %d Training samples." % train_len)
 
 
-    model = args.model_size #'bert-base-uncased'
+    model = 'bert-base-uncased'
     lower_case = True
     model_name = 'BERT'
     net = BertModel.from_pretrained(model, force_download=False, \
-                            model_size=args.model_size,
+                            model_size=model,
                             task='classification' if args.task != 'fewrel' else 'fewrel',\
                             n_classes_=args.num_classes)
 
@@ -248,13 +191,13 @@ def train_and_fit(args):
                     'optimizer' : optimizer.state_dict(),\
                     'scheduler' : scheduler.state_dict(),\
                     'amp': amp.state_dict() if amp is not None else amp
-                }, os.path.join("./Vault/mtb/output/" , "task_test_model_best.pth.tar"))
+                }, os.path.join("./Vault/mtb/output/" , "task_model_best.pth.tar"))
 
         if (epoch % 1) == 0:
             # Save full info after each epoch (full run through train data)
-            save_as_pickle("task_test_losses_per_epoch.pkl", losses_per_epoch)
+            save_as_pickle("task_losses_per_epoch.pkl", losses_per_epoch)
             save_as_pickle("task_train_accuracy_per_epoch.pkl", accuracy_per_epoch)
-            save_as_pickle("task_test_f1_per_epoch.pkl", test_f1_per_epoch)
+            save_as_pickle("task_f1_per_epoch.pkl", test_f1_per_epoch)
             torch.save({
                     'epoch': epoch + 1,\
                     'state_dict': net.state_dict(),\
@@ -262,7 +205,7 @@ def train_and_fit(args):
                     'optimizer' : optimizer.state_dict(),\
                     'scheduler' : scheduler.state_dict(),\
                     'amp': amp.state_dict() if amp is not None else amp
-                }, os.path.join("./Vault/mtb/output/" , "task_test_checkpoint.pth.tar"))
+                }, os.path.join("./Vault/mtb/output/" , "task_checkpoint.pth.tar"))
 
     # Create graphs
     # NOTE: this plot shows loss per epoch
@@ -294,6 +237,6 @@ def train_and_fit(args):
     ax3.set_xlabel("Epoch", fontsize=22)
     ax3.set_ylabel("Test F1 Accuracy", fontsize=22)
     ax3.set_title("Test F1 vs Epoch", fontsize=32)
-    plt.savefig(os.path.join("./Vault/mtb/output/" ,"task_test_f1_vs_epoch.png"))
+    plt.savefig(os.path.join("./Vault/mtb/output/" ,"task_f1_vs_epoch.png"))
 
     return net
