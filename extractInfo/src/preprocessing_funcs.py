@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-## NOTE ##:
-Adapted from weetee to load the data in the correct format to carry out match the blanks training. Full credit given to the author. Main tweaks are adjusting the script to only use the bert model and to detect numerical entities which were previously ignored
-####
-Created on Tue Nov 26 18:12:22 2019
+Adapted from https://github.com/plkmo/BERT-Relation-Extraction, full credit must be given to the original author (see below). Adaptations include, removing unncesseary calls to other bert models and adapting the entity recognition to include more entity types (particularly cardinals). Notes and comments are my own.
+
 @author: weetee
 """
 import os
@@ -16,7 +14,7 @@ import pandas as pd
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torch.nn.utils.rnn import pad_sequence
-from src.utilities import save_as_pickle, load_pickle, get_subject_objects
+from .utilities import save_as_pickle, load_pickle, get_subject_objects
 from tqdm import tqdm
 import logging
 
@@ -55,17 +53,23 @@ def create_pretraining_corpus(raw_text, nlp, window_size=40):
     ents = sents_doc.ents # get entities
 
     logger.info("Processing relation statements by entities...")
+    entities_of_interest = ["PERSON", "NORP", "FAC", "ORG", "GPE", "LOC", "PRODUCT", "EVENT", \
+                            "WORK_OF_ART", "LAW", "LANGUAGE"]
     length_doc = len(sents_doc)
-    # NOTE: D is the training corpus labelled as in the orginal MTB paper
     D = []; ents_list = []
     for i in tqdm(range(len(ents))):
-        # NOTE: Get entity 1
         e1 = ents[i]
         e1start = e1.start; e1end = e1.end
+        if e1.label_ not in entities_of_interest:
+            continue
+        if re.search("[\d+]", e1.text): # entities should not contain numbers
+            continue
+
         for j in range(1, len(ents) - i):
-            # NOTE: Get entity 2
             e2 = ents[i + j]
             e2start = e2.start; e2end = e2.end
+            if e2.label_ not in entities_of_interest:
+                continue
             if re.search("[\d+]", e2.text): # entities should not contain numbers
                 continue
             if e1.text.lower() == e2.text.lower(): # make sure e1 != e2
@@ -158,14 +162,15 @@ def create_pretraining_corpus(raw_text, nlp, window_size=40):
 
     print("Processed dataset samples from dependency tree parsing:")
     if (len(D) - ref_D) > 0:
-        samples_D_idx = np.random.choice([idx for idx in range(ref_D, len(D))],size=min(3,(len(D) - ref_D)), replace=False)
+        samples_D_idx = np.random.choice([idx for idx in range(ref_D, len(D))],\
+                                          size=min(3,(len(D) - ref_D)),\
+                                          replace=False)
         for idx in samples_D_idx:
             print(D[idx], '\n')
     return D
 
 class pretrain_dataset(Dataset):
-    # NOTE: only working with Bert so removed the call to args
-    def __init__(self, D, batch_size=None):
+    def __init__(self, args, D, batch_size=None):
         self.internal_batching = True
         self.batch_size = batch_size # batch_size cannot be None if internal_batching == True
         self.alpha = 0.7
@@ -176,22 +181,36 @@ class pretrain_dataset(Dataset):
         self.e2s = list(self.df['e2'].unique())
 
         # NOTE: Choose model - I'm only going to be using BERT
-        from transformers import BertTokenizer as Tokenizer
-        model = "bert-base-uncased"
-        lower_case = True
-        model_name = 'BERT'
+        if args.model_no == 0:
+            from .model.BERT.tokenization_bert import BertTokenizer as Tokenizer
+            model = args.model_size #'bert-base-uncased'
+            lower_case = True
+            model_name = 'BERT'
+        elif args.model_no == 1:
+            from .model.ALBERT.tokenization_albert import AlbertTokenizer as Tokenizer
+            model = args.model_size #'albert-base-v2'
+            lower_case = False
+            model_name = 'ALBERT'
+        elif args.model_no == 2:
+            from .model.BERT.tokenization_bert import BertTokenizer as Tokenizer
+            model = 'bert-base-uncased'
+            lower_case = False
+            model_name = 'BioBERT'
 
         # NOTE: Choose Tokenizer - I'm only going to be using BERT
-        tokenizer_path = '.Vault/mtb/mtb_training/%s_tokenizer.pkl' % (model_name)
-        # NOTE: Load tokenizer if it exists
+        tokenizer_path = './data/%s_tokenizer.pkl' % (model_name)
         if os.path.isfile(tokenizer_path):
             self.tokenizer = load_pickle('%s_tokenizer.pkl' % (model_name))
             logger.info("Loaded tokenizer from saved path.")
         else:
-            self.tokenizer = Tokenizer.from_pretrained(model, do_lower_case=False)
+            if args.model_no == 2:
+                self.tokenizer = Tokenizer(vocab_file='./additional_models/biobert_v1.1_pubmed/vocab.txt',
+                                           do_lower_case=False)
+            else:
+                self.tokenizer = Tokenizer.from_pretrained(model, do_lower_case=False)
             self.tokenizer.add_tokens(['[E1]', '[/E1]', '[E2]', '[/E2]', '[BLANK]'])
             save_as_pickle("%s_tokenizer.pkl" % (model_name), self.tokenizer)
-            logger.info("Saved %s tokenizer at ./Vault/mtb/mtb_training/%s_tokenizer.pkl" % (model_name, model_name))
+            logger.info("Saved %s tokenizer at ./data/%s_tokenizer.pkl" % (model_name, model_name))
 
         e1_id = self.tokenizer.convert_tokens_to_ids('[E1]')
         e2_id = self.tokenizer.convert_tokens_to_ids('[E2]')
@@ -387,11 +406,11 @@ class Pad_Sequence():
         return seqs_padded, labels_padded, labels2_padded, labels3_padded, labels4_padded,\
                 x_lengths, y_lengths, y2_lengths, y3_lengths, y4_lengths
 
-def load_dataloaders(args, data_path, max_length=50000):
+def load_dataloaders(args, max_length=50000):
 
-    if not os.path.isfile("./Vault/mtb/mtb_training/D.pkl"):
+    if not os.path.isfile("./data/D.pkl"):
         logger.info("Loading pre-training data...")
-        with open(data_path, "r", encoding="utf8") as f:
+        with open(args.pretrain_data, "r", encoding="utf8") as f:
             text = f.readlines()
 
         #text = text[:1500] # restrict size for testing
@@ -413,10 +432,10 @@ def load_dataloaders(args, data_path, max_length=50000):
         save_as_pickle("D.pkl", D)
         logger.info("Saved pre-training corpus to %s" % "./data/D.pkl")
     else:
-        D = load_pickle("./Vault/mtb/mtb_training/D.pkl")
         logger.info("Loaded pre-training data from saved file")
+        D = load_pickle("D.pkl")
 
-    train_set = pretrain_dataset(D, batch_size=args.per_device_train_batch_size)
+    train_set = pretrain_dataset(args, D, batch_size=args.batch_size)
     train_length = len(train_set)
     '''
     # if using fixed batching

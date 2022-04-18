@@ -8,14 +8,15 @@ from itertools import permutations
 
 def load_pickle(filename):
     """load data pickle from data directory"""
-    with open(filename, 'rb') as pkl_file:
+    base_path = "./Vault/mtb/output/"
+    with open(os.path.join(base_path, filename), 'rb') as pkl_file:
         data = pickle.load(pkl_file)
     return data
 
 
 def save_as_pickle(filename, data):
     """save data as a pickle file"""
-    with open(f".Vault/data/{filename}", 'wb') as output:
+    with open(f"./Vault/mtb/output/{filename}", 'wb') as output:
         pickle.dump(data, output)
 
 

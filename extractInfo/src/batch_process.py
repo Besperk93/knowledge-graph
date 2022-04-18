@@ -1,7 +1,9 @@
-import os
-from processors import TranscriptProcessor
+# python extractInfo/batch_process_v2.py
 
-dir = "Vault/transcripts"
+import os
+from processors_v2 import TranscriptProcessor
+
+dir = "./Vault/testScripts"
 
 extractor = TranscriptProcessor()
-extractor.batch_process(dir, 50)
+extractor.batch_process(dir, 10)
