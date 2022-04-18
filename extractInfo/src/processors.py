@@ -4,14 +4,14 @@ import json
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
-from inference_v2 import InferencePipeline
+from inference import InferencePipeline
 from tqdm import tqdm
 from datetime import datetime
 
 class TranscriptProcessor:
 
     def __init__(self):
-        self.OUTPUT = "./Vault/testGraph/"
+        self.OUTPUT = "./Vault/graph/"
         self.COLUMNS = ["Video", "Relation", "Entity1", "Entity2", "Pos1", "Pos2", "Label1", "Label2"]
         self.ROWS = []
         self.EXTRACTOR = InferencePipeline()
@@ -119,4 +119,5 @@ class TranscriptProcessor:
         plt.savefig(f"{self.OUTPUT}{self.NAME}_graph.png")
         graph.clear()
         plt.clf()
+        del graph
         return

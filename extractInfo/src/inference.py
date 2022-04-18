@@ -3,11 +3,15 @@ import torch
 import os
 import re
 from transformers import BertModel, BertTokenizer
-from extractInfo.src.utilities import load_pickle, import_relations
+from utilities import load_pickle, import_relations
 from itertools import permutations
-from Vault.weetee.BERT.modeling_bert import BertModel as Model
-from Vault.weetee.BERT.tokenization_bert import BertTokenizer as Tokenizer
-from knowledgeObject2 import KnowledgeObject
+from model.BERT.modeling_bert import BertModel as Model
+from model.BERT.tokenization_bert import BertTokenizer as Tokenizer
+from knowledgeObject import KnowledgeObject
+import nltk
+from nltk.corpus import stopwords
+
+nltk.download('stopwords')
 
 class InferencePipeline:
 
@@ -19,7 +23,8 @@ class InferencePipeline:
             self.DEVICE = torch.device('cuda')
             torch.set_default_tensor_type('torch.cuda.FloatTensor')
         self.NLP = spacy.load("en_core_web_trf")
-        self.RM = import_relations('Vault/relations.json', 'Vault/relation_ids.json')
+        self.RM = import_relations("./Vault/mtb/output/rel_map.json", "./Vault/mtb/output/id_map.json")
+        self.STOPWORDS = set(stopwords.words('english'))
         self.load_model()
         self.load_model_checkpoint()
         self.update_model()
@@ -58,7 +63,7 @@ class InferencePipeline:
             entities = input.ents
             pairs = []
             if len(entities) > 1:
-                for a, b in permutations([entity for entity in entities], 2):
+                for a, b in permutations(set([entity for entity in entities if not entity.text.lower() in self.STOPWORDS]), 2):
                     object = KnowledgeObject()
                     object.PAIR = (a, b)
                     pairs.append(object)
@@ -72,20 +77,28 @@ class InferencePipeline:
             sents_doc = self.nlp(input)
         else:
             sents_doc = input
-        sent_ = next(sents_doc.sents)
-        root = sent_.root
+        # sent_ = next(sents_doc.sents)
+        # root = sent_.root
+        chunks = sents_doc.noun_chunks
 
         subject = None; objs = []; pairs = []
-        for child in root.children:
-            if child.dep_ in ["nsubj", "nsubjpass"]:
+        for chunk in chunks:
+            if chunk.root.dep_ in ["nsubj", "nsubjpass"]:
                 #NOTE: Commenting this out to see if I can get better numerical info
                 # if len(re.findall("[a-z]+",child.text.lower())) > 0: # filter out all numbers/symbols
-                subject = child
-            elif child.dep_ in ["dobj", "attr", "prep", "ccomp", "compound", "pobj", "quantmod"]:
-                objs.append(child)
+                # NOTE: Replace with stopword filter
+                if chunk.root.text in self.STOPWORDS:
+                    continue
+                else:
+                    subject = chunk
+            elif chunk.root.dep_ in ["dobj", "attr", "prep", "ccomp", "compound", "pobj", "quantmod"]:
+                if chunk.root.text in self.STOPWORDS:
+                    continue
+                else:
+                    objs.append(chunk)
 
         if (subject is not None) and (len(objs) > 0):
-            for a, b in permutations([subject] + [obj for obj in objs], 2):
+            for a, b in permutations(set([subject] + [obj for obj in objs]), 2):
                 object = KnowledgeObject()
                 object.PAIR = (a, b)
                 pairs.append(object)
@@ -176,7 +189,7 @@ class InferencePipeline:
 
     def load_model_checkpoint(self):
         try:
-            self.CHECKPOINT = torch.load("/home/besperk/Code/knowledge-graph/Vault/weetee/models/task_test_checkpoint_0.pth.tar")
+            self.CHECKPOINT = torch.load("./Vault/mtb/output/task_model_best.pth.tar")
         except Exception as e:
             print(f"Error loading trained checkpoint: {repr(e)}")
             return
@@ -184,7 +197,7 @@ class InferencePipeline:
 
     def load_model(self):
         try:
-            self.NET = Model.from_pretrained("bert-base-uncased", model_size='bert-base-uncased', task='classification', n_classes_=19).to(self.DEVICE)
+            self.NET = Model.from_pretrained("bert-base-uncased", model_size='bert-base-uncased', task='classification', n_classes_=26).to(self.DEVICE)
         except Exception as e:
             print(f"Error loading BERT from transformers: {repr(e)}")
             return

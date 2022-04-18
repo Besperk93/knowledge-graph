@@ -29,6 +29,20 @@ def import_relations(loc1, loc2):
     return relations
 
 
+def unpack_relations(loc="./Vault/mtb/output/relations.pkl"):
+
+    with open(loc, 'rb') as file:
+        relations = pickle.load(file)
+
+    ids = relations.idx2rel
+    rels = relations.rel2idx
+
+    with open("./Vault/mtb/output/rel_map.json", 'w') as out:
+        json.dump(rels, out)
+
+    with open("./Vault/mtb/output/id_map.json", 'w') as out:
+        json.dump(ids, out)
+
 # This is used in the preprocessing stages to prepare the blanked dataset "D".
 def get_subject_objects(sent_):
     """return subject, object pairs parsed from dependency tree"""
