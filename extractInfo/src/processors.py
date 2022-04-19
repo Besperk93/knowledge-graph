@@ -16,8 +16,7 @@ class TranscriptProcessor:
         self.ROWS = []
         self.EXTRACTOR = InferencePipeline()
         self.TIME = datetime.now().strftime("%y%m%d_%H-%M")
-        tracemalloc.start()
-
+        
     def batch_process(self, loc, batch_size):
         total_scripts = len([f for f in os.listdir(loc)])
         self.BATCH = []
