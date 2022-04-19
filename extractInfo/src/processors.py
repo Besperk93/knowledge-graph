@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 from inference import InferencePipeline
 from tqdm import tqdm
 from datetime import datetime
-import tracemalloc
 
 class TranscriptProcessor:
 
@@ -32,11 +31,6 @@ class TranscriptProcessor:
                     self.store_csv()
                     self.BATCH[:] = []
                     self.ROWS[:] = []
-                    snapshot = tracemalloc.take_snapshot()
-                    top_stats = snapshot.statistics('lineno')
-                    print(f"Top 10:")
-                    for stat in top_stats[:10]:
-                        print(stat)
         print("Processing Complete")
         return
 
@@ -118,7 +112,7 @@ class TranscriptProcessor:
                     fail.write(script.name + '\n')
         df = pd.DataFrame(self.ROWS, columns=self.COLUMNS)
         df.to_csv(f"{self.OUTPUT}{self.NAME}_data.csv", index=False)
-        return 
+        return
 
     def create_graph(self, df):
         graph = nx.from_pandas_edgelist(df, source="Entity1", target="Entity2", edge_attr="Relation")
