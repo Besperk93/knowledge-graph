@@ -1,4 +1,5 @@
 import pandas as pd
+import networkx
 import os
 import re
 
@@ -24,6 +25,19 @@ class TripleStore:
         self.DF = self.DF.drop_duplicates()
         print(f"Dropped {old_len - len(self.DF.index)} duplicate rows from store")
         print(f"New Store contains {len(self.DF.index)} relation triples")
+
+
+    def create_graph(self, df):
+        base_path = "./Vault/graph/"
+        graph = nx.from_pandas_edgelist(df, source="Entity1", target="Entity2", edge_attr="Relation")
+        plt.figure(figsize=(50,50))
+        nx.draw(graph, node_size=20, with_labels=True, font_size=8)
+        plt.savefig(os.path.join(base_path, f"graph.png"))
+        graph.clear()
+        plt.close()
+        del graph
+        return
+
 
     def check_entity(self, e1:str):
         # NOTE: Commonly occuring starting sylables may return incorrect entities. I could just use a tokenizer.

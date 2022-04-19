@@ -16,7 +16,8 @@ class TranscriptProcessor:
         self.ROWS = []
         self.EXTRACTOR = InferencePipeline()
         self.TIME = datetime.now().strftime("%y%m%d_%H-%M")
-        
+        self.FAIL = False
+
     def batch_process(self, loc, batch_size):
         total_scripts = len([f for f in os.listdir(loc)])
         self.BATCH = []
@@ -28,6 +29,9 @@ class TranscriptProcessor:
                     self.BATCH_NO += 1
                     self.process(self.BATCH)
                     self.store_csv()
+                    if self.FAIL:
+                        print("Batch failed, stopping run")
+                        return
                     self.BATCH[:] = []
                     self.ROWS[:] = []
         print("Processing Complete")
@@ -89,7 +93,7 @@ class TranscriptProcessor:
         if sentences is not None:
             for sentence in sentences:
                 #NOTE: probably worth adding (if len(sentence.split()) > 500: continue)
-                if len(sentence.split(' ')) > 500:
+                if len(sentence.split()) > 500:
                     continue
                 try:
                     # predictions refers to a (mention, relation) tuple
@@ -109,6 +113,8 @@ class TranscriptProcessor:
             with open(f"Vault/fails/{self.NAME}.txt", 'w') as fail:
                 for script in self.BATCH:
                     fail.write(script.name + '\n')
+            self.FAIL = True
+            return
         df = pd.DataFrame(self.ROWS, columns=self.COLUMNS)
         df.to_csv(f"{self.OUTPUT}{self.NAME}_data.csv", index=False)
         return

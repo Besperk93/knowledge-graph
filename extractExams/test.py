@@ -27,5 +27,5 @@ with open(pdf_path, 'rb') as infile:
             elif isinstance(obj, LTFigure):
                 print("Skipping figure")
 
-with open("output/" + filename, "w") as outfile:
+with open("output/" + "paper1.txt", "w") as outfile:
     outfile.write(text)

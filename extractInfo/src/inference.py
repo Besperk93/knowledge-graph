@@ -87,12 +87,12 @@ class InferencePipeline:
                 #NOTE: Commenting this out to see if I can get better numerical info
                 # if len(re.findall("[a-z]+",child.text.lower())) > 0: # filter out all numbers/symbols
                 # NOTE: Replace with stopword filter
-                if chunk.root.text in self.STOPWORDS:
+                if chunk.root.text.lower() in self.STOPWORDS:
                     continue
                 else:
                     subject = chunk
             elif chunk.root.dep_ in ["dobj", "attr", "prep", "ccomp", "compound", "pobj", "quantmod"]:
-                if chunk.root.text in self.STOPWORDS:
+                if chunk.root.text.lower() in self.STOPWORDS:
                     continue
                 else:
                     objs.append(chunk)
@@ -107,7 +107,7 @@ class InferencePipeline:
 
     def extract_one_relation(self, mention):
         self.NET.eval()
-        tokenized = self.TOKENIZER.encode(mention)
+        tokenized = self.TOKENIZER.encode(mention, max_length=500)
         entity_starts = self.get_e1e2_start(tokenized)
         tokenized = torch.LongTensor(tokenized).unsqueeze(0)
         entity_starts = torch.LongTensor(entity_starts).unsqueeze(0)
