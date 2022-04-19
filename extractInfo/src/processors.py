@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from inference import InferencePipeline
 from tqdm import tqdm
 from datetime import datetime
+import tracemalloc
 
 class TranscriptProcessor:
 
@@ -16,6 +17,7 @@ class TranscriptProcessor:
         self.ROWS = []
         self.EXTRACTOR = InferencePipeline()
         self.TIME = datetime.now().strftime("%y%m%d_%H-%M")
+        tracemalloc.start()
 
     def batch_process(self, loc, batch_size):
         total_scripts = len([f for f in os.listdir(loc)])
@@ -30,6 +32,11 @@ class TranscriptProcessor:
                     self.store_csv()
                     self.BATCH[:] = []
                     self.ROWS[:] = []
+                    snapshot = tracemalloc.take_snapshot()
+                    top_stats = snapshot.statistics('lineno')
+                    print(f"Top 10:")
+                    for stat in top_stats[:10]:
+                        print(stat)
         print("Processing Complete")
         return
 
@@ -41,6 +48,7 @@ class TranscriptProcessor:
                 self.TITLE = script.name
                 sentences = self.clean_script(script)
                 self.extract_relations(sentences)
+                os.rename(script, f"./Vault/waste/{script.name}")
         elif (isinstance(loc, str)) and (os.path.isfile(loc)):
                 self.NAME = re.search(r"^.*\/(.*)\.txt$", loc).group(1)
                 self.TITLE = re.search(r"^.*\/(.*)\.txt$", loc).group(1)
@@ -110,7 +118,7 @@ class TranscriptProcessor:
                     fail.write(script.name + '\n')
         df = pd.DataFrame(self.ROWS, columns=self.COLUMNS)
         df.to_csv(f"{self.OUTPUT}{self.NAME}_data.csv", index=False)
-        return self.create_graph(df)
+        return 
 
     def create_graph(self, df):
         graph = nx.from_pandas_edgelist(df, source="Entity1", target="Entity2", edge_attr="Relation")
@@ -118,6 +126,6 @@ class TranscriptProcessor:
         nx.draw(graph, node_size=20, with_labels=True, font_size=8)
         plt.savefig(f"{self.OUTPUT}{self.NAME}_graph.png")
         graph.clear()
-        plt.clf()
+        plt.close()
         del graph
         return
