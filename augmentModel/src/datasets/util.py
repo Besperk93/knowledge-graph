@@ -1,10 +1,20 @@
+"""
+Credit must be given to the original author:
 
+    @article{hendrycksmath2021,
+      title={Measuring Mathematical Problem Solving With the MATH Dataset},
+      author={Dan Hendrycks and Collin Burns and Saurav Kadavath and Akul Arora and Steven Basart and Eric Tang and Dawn Song and Jacob Steinhardt},
+      journal={NeurIPS},
+      year={2021}
+    }
+
+"""
 
 import pprint
 
 def last_boxed_only(sample):
     """
-    Given a (q,a) sample, filter the answers so that they only contain 
+    Given a (q,a) sample, filter the answers so that they only contain
     the last \boxed{...} or \fbox{...} element
     """
     q, a = sample
@@ -32,12 +42,12 @@ def last_boxed_only_string(string):
                 right_brace_idx = i
                 break
         i += 1
-    
+
     if right_brace_idx == None:
         retval = None
     else:
         retval = string[idx:right_brace_idx + 1]
-    
+
     return retval
 
 def only_until_first_boxed_from_tokens(string, tokens):
@@ -46,13 +56,13 @@ def only_until_first_boxed_from_tokens(string, tokens):
         idx = string.find("\\fbox")
         if idx < 0:
             return None
-    
+
     cum_length = 0
     for i, t in enumerate(tokens):
         cum_length += len(t)
         if cum_length >= idx:
             break
-    
+
     return tokens[:i]
 
 

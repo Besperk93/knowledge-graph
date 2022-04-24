@@ -119,6 +119,7 @@ class TranscriptProcessor:
         df.to_csv(f"{self.OUTPUT}{self.NAME}_data.csv", index=False)
         return
 
+
     def create_graph(self, df):
         graph = nx.from_pandas_edgelist(df, source="Entity1", target="Entity2", edge_attr="Relation")
         plt.figure(figsize=(50,50))

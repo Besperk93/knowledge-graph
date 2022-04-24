@@ -96,8 +96,8 @@ if __name__ == '__main__':
     from tripleStore import TripleStore
 
     # load graph
-    graph = TripleStore("/home/besperk/Code/knowledge-graph/Vault/working-graph/")
-    # train a knowledge graph embedding for senticnet graph
+    graph = TripleStore("/home/besperk/Code/knowledge-graph/Vault/graph/")
+    # train a knowledge graph embedding
     embedding = EmbeddedKnowledge(embedding_dimension=200)
 
     print("Training Embedding...")
@@ -107,4 +107,4 @@ if __name__ == '__main__':
         print(metric.ljust(30, ' '), value)
 
     print("Saving Embedding...")
-    embedding.save("/home/besperk/Code/knowledge-graph/augmentModel/src/knowledge/bin/")
+    embedding.save("/home/besperk/Code/knowledge-graph/augmentModel/src/knowledge/output/")

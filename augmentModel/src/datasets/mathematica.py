@@ -1,9 +1,17 @@
 """
-Load Khan Data for Math training.
+Credit must be given to the original author:
+
+    @article{hendrycksmath2021,
+      title={Measuring Mathematical Problem Solving With the MATH Dataset},
+      author={Dan Hendrycks and Collin Burns and Saurav Kadavath and Akul Arora and Steven Basart and Eric Tang and Dawn Song and Jacob Steinhardt},
+      journal={NeurIPS},
+      year={2021}
+    }
+
 """
 
 import torch
-import torch.nn as nn 
+import torch.nn as nn
 import torch.nn.functional as F
 import json
 import glob
@@ -62,10 +70,10 @@ class MathematicaMathDataset(BaseMathDataset):
                         reading_question = False
                     else:
                         curr_section += line
-                
+
                 # The last answer needs to be recorded.
                 answers.append(curr_section)
-            
+
             for a in answers:
                 samples_raw.append((question, a, fname))
 
@@ -96,22 +104,22 @@ class MathematicaMathDataset(BaseMathDataset):
             answer_ids       = self.tokenizer.encode(answer, verbose=False)
             answer_ids.append(self.tokenizer.eos_token_id)
             answer_ids       = torch.LongTensor(answer_ids)
-            
+
             # Use full solution
             input_ids = torch.cat([
-                question_ids, 
+                question_ids,
                 sep_ids,
                 answer_ids
             ], dim=0)
 
             label_ids = torch.cat([
-                torch.ones_like(question_ids) * -100, 
-                torch.ones_like(sep_ids) * -100, 
+                torch.ones_like(question_ids) * -100,
+                torch.ones_like(sep_ids) * -100,
                 answer_ids.clone()
             ], dim=0)
         else:
             raise NotImplementedError()
-        
+
         # Stop early if this Q,A pair is too long
         if input_ids.shape[0] > self.max_tokens:
             # Print reason for skipping
@@ -144,7 +152,7 @@ class MathematicaMathDataset(BaseMathDataset):
             answer_ids       = torch.LongTensor(self.tokenizer.encode(answer, verbose=False))
 
             input_ids = torch.cat([
-                question_ids, 
+                question_ids,
             ], dim=0)
 
             label_ids = torch.cat([
@@ -152,7 +160,7 @@ class MathematicaMathDataset(BaseMathDataset):
             ], dim=0)
         else:
             raise NotImplementedError()
-        
+
         # Stop early if this Q,A pair is too long
         if input_ids.shape[0] > self.max_tokens:
             # Print reason for skipping

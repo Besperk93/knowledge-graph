@@ -3,11 +3,13 @@ import torch.nn as nn
 import transformers
 # import knowbert model
 from src.model.model import KnowGPT2Model, KnowGPT2LMHeadModel
+from transformers import GPT2LMHeadModel
 from pynvml import *
 # import knowledge bases
 from src.knowledge.khangraph import KhanGraph
 from src.datasets.khan_academy import KhanAcademyMathDataset
 from src.datasets.mathematica_with_steps import MathematicaWithStepsMathDataset
+from src.datasets.MATH import MATHDataset
 # utils
 import os
 import glob
@@ -16,36 +18,61 @@ from matplotlib import pyplot as plt
 from sklearn.metrics import f1_score
 from datetime import datetime
 
-def load_data(dataroot, multiplier):
+def load_data(dataroot, multiplier, mode):
 
     tokenizer = get_tokenizer_gpt()
 
-    train_data = []
+    if mode == "pretrain":
+        train_data = []
 
-    khan_root = dataroot + "khan"
-    wolf_root = dataroot + "mathematica"
+        khan_root = dataroot + "amps/khan"
+        wolf_root = dataroot + "amps/mathematica"
 
-    khan_multiplier = multiplier
-    wolf_multiplier = multiplier * 0.1
+        khan_multiplier = multiplier
+        wolf_multiplier = multiplier * 0.1
 
-    train_data.append(KhanAcademyMathDataset(
-            dataroot=khan_root,
-            tokenizer=tokenizer,
+        train_data.append(KhanAcademyMathDataset(
+                dataroot=khan_root,
+                tokenizer=tokenizer,
+                max_tokens=1024,
+                mode='gpt2',
+                mode_answer='mixed_hints',
+                len_multiplier=khan_multiplier,
+                latex_mask=False))
+
+        train_data.append(MathematicaWithStepsMathDataset(
+                dataroot=wolf_root,
+                tokenizer=tokenizer,
+                max_tokens=1024,
+                mode='gpt2',
+                len_multiplier=wolf_multiplier))
+
+        return torch.utils.data.ConcatDataset(train_data)
+
+    elif mode == "finetune":
+
+        train_data = []
+
+        math_root = dataroot + "MATH/train"
+
+        math_multiplier = 1
+
+        train_data.append(MATHDataset(
+            dataroot=math_root,
+            tokenizer=tokenizer, # Set in run_training(), not in dataset creation
             max_tokens=1024,
             mode='gpt2',
-            mode_answer='mixed_hints',
-            len_multiplier=multiplier,
-            latex_mask=False))
+            mode_answer="mixed_final_boxed_and_full",
+            len_multiplier=math_multiplier,
+            peek_fraction=(0.1, 1.0),
+            packing=True,    # Special for fine-tuning
+            randomize=True
+        ))
 
-    train_data.append(MathematicaWithStepsMathDataset(
-            dataroot=wolf_root,
-            tokenizer=tokenizer,
-            max_tokens=1024,
-            mode='gpt2',
-            len_multiplier=multiplier * 0.01))
+        return torch.utils.data.ConcatDataset(train_data)
 
-    # NOTE: For now just looking at the khan problem set
-    return torch.utils.data.ConcatDataset(train_data)
+    else:
+        print("Invalid training mode, must be either pretrain or finetune")
 
 def get_tokenizer_gpt():
     tokenizer = transformers.GPT2Tokenizer.from_pretrained('gpt2')
@@ -61,7 +88,7 @@ def print_gpu_utilization():
 
 def save_output(path, output):
     log = datetime.now().strftime("%Y%m%d_%H%M")
-    out_path = f"Vault/output/{log}/log/"
+    out_path = f"./Vault/output/{log}/log/"
     os.makedirs(out_path, exist_ok=True)
     with open(os.path.join(out_path, "command.txt"), 'w') as out_command:
         f.write(output)
@@ -201,21 +228,18 @@ def run_training(train_data, model):
         train_dataset=train_data,
     )
 
-    # NOTE: CustomTensorBoardCallback() is not defined, revert to default hugging face callback.
-    # trainer.remove_callback(transformers.integrations.TensorBoardCallback)
-    # trainer.add_callback(CustomTensorBoardCallback())
-
     print(f"Clearing CUDA cache")
+    # NOTE: Check how much space there is on the GPU
     print_gpu_utilization()
     torch.cuda.empty_cache()
-    # print(f"Memory Snapshot:\n {torch.cuda.memory_snapshot()}")
-    # torch.cuda.max_split_size_mb(500)
 
     print(f"STARTING TRAINING. save_steps={save_steps}")
     trainer.train()
 
-    trainer.save_model(os.path.join("/home/besperk/Code/knowledge-graph/Vault/know_gpt2_output/", "final_checkpoint"))
+    # NOTE: Should save to output_dir from training arguments
+    trainer.save_model()
     print("Finished")
+    return
 
 
 def main():
@@ -225,23 +249,35 @@ def main():
     # Prepare Arguments
     main_device = 'cuda:0'
     base_model = "gpt2"
-    load = "/home/besperk/Code/math/checkpoints/TEMP/04-07-2022__00:57:11/final_checkpoint/"
-    data_path = "/home/besperk/Code/knowledge-graph/Vault/working-graph/"
-    data_root = "/home/besperk/Code/MATH-Data/amps/"
+    # For AMPS training load a pretrained GPT2 model or load the AMPS trained model for fine-tuning on MATH or None for a vanilla GPT2 model from transformers
+    load = None
+    # The path to the knowledge base for training a KnowGPT2Model, otherwise leave as None
+    data_path = None
+    data_root = "/home/besperk/Code/MATH-Data/"
     multiplier = 1
 
     print("Loading Model... (%s)" % base_model)
 
     # Prepare Model
-    model = KnowGPT2LMHeadModel.from_pretrained(load)
-    kb = model.add_kb(10, KhanGraph(data_path=data_path))
-    model.freeze_layers(10)
+    if load:
+        print("Loading a pretrained KnowGPT2Model")
+        model = KnowGPT2LMHeadModel.from_pretrained(load)
+    else:
+        print("Loading a vanilla GPTModel")
+        model = GPT2LMHeadModel.from_pretrained('gpt2')
+
+    # Note: once a KnowGPT2Model has been trained, we don't want to try and add another kb at the same layer
+    if data_path:
+        kb = model.add_kb(10, KhanGraph(data_path=data_path))
+        model.freeze_layers(10)
+
     model.to(main_device)
 
     # Get Training data
-    train_data = load_data(data_root, multiplier)
+    train_data = load_data(data_root, multiplier, "pretrain")
 
     run_training(train_data, model)
+    return
 
 
 if __name__ == "__main__":
