@@ -339,7 +339,7 @@ def main():
     parser.add_argument('--tpu_num_cores', default=None, type=int)
 
     # Logging and stuff
-    parser.add_argument('--save-dir', default="checkpoints/TEMP", type=str)
+    parser.add_argument('--save-dir', default="Vault/checkpoints/TEMP", type=str)
     parser.add_argument('--save-steps', default=0, type=int)
     parser.add_argument('--log-freq', default=5, type=int)
 

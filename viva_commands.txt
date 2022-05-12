@@ -8,12 +8,19 @@ python scrapeKhan/scrapeKhan.py
 # extracting Info
 
 python extractInfo/main_pretraining.py
+
 python extractInfo/main_task.py
+
 python extractInfo/analyseGraph.py
 
 # Augmenting Model
 
-python augmentModel/train_gpt2.py
+python augmentModel/train_gpt2.py --khan-dataroot="1@/home/besperk/Code/MATH-Data/amps/khan"
+
 python augmentModel/train_knowgpt2.py
-python augmentModel/evaluate_math.py
+
+# Need to add path to math data and eval settings
+python augmentModel/evaluate_math.py --load="" --num-beams=1 --math-dataroot="" --workers=1
+
+# Needs to load a trained model
 python augmentModel/eval_ppl.py

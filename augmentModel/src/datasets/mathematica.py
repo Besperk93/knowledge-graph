@@ -26,7 +26,7 @@ from src.datasets.util import last_boxed_only, _clean_numbers, last_boxed_only_s
 from multiprocessing import Manager
 
 from torch.multiprocessing import Pool
-from dataset.base_math_dataset import BaseMathDataset
+from src.datasets.base_math_dataset import BaseMathDataset
 
 class MathematicaMathDataset(BaseMathDataset):
     """Configurable Math Dataset.
