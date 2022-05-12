@@ -38,11 +38,11 @@ def process_text(text, mode='train'):
 
         # check entries
         # NOTE: Comment out this as our extended dataset breaches these assertions
-        if mode == 'train':
-            assert int(re.match("^\d+", sent)[0]) == (i + 1)
-        else:
-            # print(sent)
-            assert (int(re.match("^\d+", sent)[0]) - 18173) == (i + 1)
+        # if mode == 'train':
+        #     assert int(re.match("^\d+", sent)[0]) == (i + 1)
+        # else:
+        #     # print(sent)
+        #     assert (int(re.match("^\d+", sent)[0]) - 18173) == (i + 1)
         assert re.match("^Comment", comment)
         assert len(blank) == 1
 
