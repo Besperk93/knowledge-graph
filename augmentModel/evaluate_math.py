@@ -1,3 +1,14 @@
+"""
+Used to evaluate the GPT2 model for comparison with our KnowGPT2 model, taken from the orignal paper's repository. Full credit must be given to the authors for this. Only a few small changes made in order to get the script to run on my machine.
+
+@article{hendrycksmath2021,
+      title={Measuring Mathematical Problem Solving With the MATH Dataset},
+      author={Dan Hendrycks and Collin Burns and Saurav Kadavath and Akul Arora and Steven Basart and Eric Tang and Dawn Song and Jacob Steinhardt},
+      journal={NeurIPS},
+      year={2021}
+    }
+"""
+
 import io
 import logging
 import math
@@ -166,7 +177,7 @@ def run_eval(args):
                 early_stopping=True,
                 # NOTE change max length and decrease temperature (not sure if this is relevant with beams=1)
                 temperature=1.0,
-                max_length=351
+                max_length=512
             )
 
             # logits = model(output_ids).logits

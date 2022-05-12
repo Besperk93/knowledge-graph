@@ -1,3 +1,14 @@
+"""
+Used to evaluate the GPT2 model for comparison with our KnowGPT2 model, taken from the orignal paper's repository. Full credit must be given to the authors for this. Only a few small changes made in order to get the script to run on my machine.
+
+@article{hendrycksmath2021,
+      title={Measuring Mathematical Problem Solving With the MATH Dataset},
+      author={Dan Hendrycks and Collin Burns and Saurav Kadavath and Akul Arora and Steven Basart and Eric Tang and Dawn Song and Jacob Steinhardt},
+      journal={NeurIPS},
+      year={2021}
+    }
+"""
+
 def _fix_fracs(string):
     substrs = string.split("\\frac")
     new_str = substrs[0]
@@ -56,7 +67,7 @@ def _fix_sqrt(string):
     if "\\sqrt" not in string:
         return string
     splits = string.split("\\sqrt")
-    new_string = splits[0] 
+    new_string = splits[0]
     for split in splits[1:]:
         if split[0] != "{":
             a = split[0]
@@ -67,7 +78,7 @@ def _fix_sqrt(string):
     return new_string
 
 def _strip_string(string):
-    # linebreaks  
+    # linebreaks
     string = string.replace("\n", "")
     #print(string)
 
@@ -88,14 +99,14 @@ def _strip_string(string):
     string = string.replace("\\left", "")
     string = string.replace("\\right", "")
     #print(string)
-    
+
     # Remove circ (degrees)
     string = string.replace("^{\\circ}", "")
     string = string.replace("^\\circ", "")
 
     # remove dollar signs
     string = string.replace("\\$", "")
-    
+
     # remove units (on the right)
     string = _remove_right_units(string)
 

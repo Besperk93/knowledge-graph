@@ -3,9 +3,6 @@
 
 This subdirectory contains the code used to extract information from the Khan Academy transcripts. It is structured as follows:
 
-_annotatedReferences_
-
-These contain annotated versions of scripts and functions from open sourced repositories. In this case from: https://github.com/plkmo/BERT-Relation-Extraction. Annotations of what each, relevant, function does were made as comments and proved important in understanding the processes involved. These are included to show where and how adaptations were made to suit this project's purposes.
 
 _bin_
 

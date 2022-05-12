@@ -2,10 +2,6 @@
 
 This subdirectory contains the code used to train a GPT2 model on the auxillary AMPS dataset, train an embedding for our knowledge base, integrated the knowledge base with the GPT2 model using a KAR component and then assess our models performance on the MATH dataset _and perhaps a GCSE maths paper_.
 
-_annotatedReferences_
-
-This directory contains any relevant scripts from either the original Allen AI KnowBERT repository (https://github.com/allenai/kb) or the implementation made available by Niclas Doll (https://github.com/ndoll1998/KnowBert). These were used as references when adapting, extending and writing original code for the implementation in the *src* directory.
-
 _src_
 
 This directory contains the code used for the model, training procedures, KAR and evaluation of the KnowGPT2 model. The AMPS pretraining corpus is made up of _datasets_ created by the Khan_Academy.py and Mathematica_with_steps.py scripts, differening from the original paper in not including the _mathematica_ dataset. This divergence was due to memory constraints with the loading the full number of json files from the Vault.

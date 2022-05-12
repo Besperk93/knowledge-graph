@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from src.model.model import KnowGPT2Model, KnowGPT2LMHeadModel
-from transformers import GPT2Tokenizer
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
 from src.knowledge.khangraph import KhanGraph
 from src.datasets.khan_academy import KhanAcademyMathDataset
 from src.datasets.mathematica_with_steps import MathematicaWithStepsMathDataset
@@ -34,12 +34,12 @@ def get_tokenizer_gpt():
 
 
 def eval_ppl():
-    
+
     device = "cuda"
-    model_id = "./Vault/know_gpt2_output/amps_checkpoint"
+    model_id = "/home/besperk/Code/math/checkpoints/TEMP/04-23-2022__13:40:48/gpt2_amps"
 
     # Establish Model & Tokenizer
-    model = KnowGPT2LMHeadModel.from_pretrained(model_id).to(device)
+    model = GPT2LMHeadModel.from_pretrained(model_id).to(device)
     # Load Dataset
     test = load_data("./Vault/waste/")
     tokenizer = get_tokenizer_gpt()
@@ -49,11 +49,11 @@ def eval_ppl():
     stride = 512
 
     nlls = []
-    for i in tqdm(range(0, len(test), stride)):
+    for i in tqdm(range(0, encodings.input_ids.size(1), stride)):
         begin_loc = max(i + stride - max_length, 0)
-        end_loc = min(i + stride, len(test))
+        end_loc = min(i + stride, encodings.input_ids.size(1))
         trg_len = end_loc - i  # may be different from stride on last loop
-        input_ids = test["input_ids"][:, begin_loc:end_loc].to(device)
+        input_ids = encodings.input_ids[:, begin_loc:end_loc].to(device)
         target_ids = input_ids.clone()
         target_ids[:, :-trg_len] = -100
 
@@ -62,8 +62,8 @@ def eval_ppl():
             neg_log_likelihood = outputs[0] * trg_len
 
         nlls.append(neg_log_likelihood)
-        ppl = torch.exp(torch.stack(nlls).sum() / end_loc)
-        print(ppl)
+    ppl = torch.exp(torch.stack(nlls).sum() / end_loc)
+    print(ppl)
 
 
 

@@ -1,1 +1,0 @@
-python extractInfo/main_task.py --train_data="./Vault/mtb/eval/combined_train.txt" --test_data="./Vault/mtb/eval/combined_test.txt" --num_classes=26

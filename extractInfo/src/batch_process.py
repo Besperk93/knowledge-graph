@@ -1,4 +1,3 @@
-# python extractInfo/batch_process_v2.py
 import tracemalloc
 import os
 from processors import TranscriptProcessor

@@ -1,7 +1,0 @@
-{
-  "Mention":"MENTION",
-  "Pair": ["ENTITY1", "ENTITY2"],
-  "POS": ["POS1", "POS2"],
-  "Label": ["LABEL1", "LABEL2"],
-  "Relation": "RELATION"
-}

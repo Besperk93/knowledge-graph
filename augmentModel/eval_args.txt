@@ -1,8 +1,0 @@
-python augmentModel/train.py
-
-
-
-python augmentModel/evaluate_math.py --load="./Vault/know_gpt2_output/math_checkpoint" --math-dataroot="/home/besperk/Code/MATH-Data/MATH/test/" --num-beams=1 --workers=1 --math-mode="final_boxed"
-
-
-python augmentModel/src/knowledge/embeddedKnowledge.py

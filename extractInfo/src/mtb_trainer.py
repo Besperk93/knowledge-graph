@@ -35,7 +35,7 @@ def train_and_fit(args):
 
     if args.fp16:
         from apex import amp
-    else:pretrain_data
+    else:
         amp = None
 
     cuda = torch.cuda.is_available()

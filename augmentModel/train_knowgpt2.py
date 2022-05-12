@@ -88,7 +88,7 @@ def print_gpu_utilization():
 
 def save_output(path, output):
     log = datetime.now().strftime("%Y%m%d_%H%M")
-    out_path = f"./Vault/output/{log}/log/"
+    out_path = f"./Vault/know_gpt2_output/{log}/log/"
     os.makedirs(out_path, exist_ok=True)
     with open(os.path.join(out_path, "command.txt"), 'w') as out_command:
         f.write(output)

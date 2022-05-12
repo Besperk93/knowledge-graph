@@ -1,3 +1,7 @@
+"""
+Adapted and refactored from the hugging face KnowBert implementation by ndoll1998 (https://github.com/ndoll1998/KnowBert) Credit must be given for the original implementation. Changes made to to utilise a GPT2 model as a base, utilise our Khan knowledge base and to get the model to train on my machine.
+
+"""
 import torch
 from abc import ABC
 from functools import wraps

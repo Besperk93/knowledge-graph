@@ -1,0 +1,19 @@
+# Scraping Khan Academy
+# Chrome has been updated since
+# YouTube has been updated since, xpath no longer working
+
+python scrapeKhan/scrapeKhan.py
+
+
+# extracting Info
+
+python extractInfo/main_pretraining.py
+python extractInfo/main_task.py
+python extractInfo/analyseGraph.py
+
+# Augmenting Model
+
+python augmentModel/train_gpt2.py
+python augmentModel/train_knowgpt2.py
+python augmentModel/evaluate_math.py
+python augmentModel/eval_ppl.py

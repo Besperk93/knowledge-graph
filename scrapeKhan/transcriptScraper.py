@@ -78,7 +78,6 @@ class transcriptScraper():
 
 
     def scroll_down(self):
-        # TODO: This isn't working, the browser is waiting but not scrolling. check the javascript
         try:
             element = self.driver.find_element(By.CSS_SELECTOR, "ytd-browse.style-scope.ytd-page-manager")
             height = self.driver.execute_script("return arguments[0].scrollHeight", element)
@@ -99,7 +98,8 @@ class transcriptScraper():
 
     def agree_terms(self):
         try:
-            agree_button = self.driver.find_element(By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div/div/div[2]/div[1]/div[4]/form/div/div/button')
+            # agree_button = self.driver.find_element(By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div/div/div[2]/div[1]/div[4]/form/div/div/button')
+            agree_button = self.driver.find_element(By.CSS_SELECTOR, '#button.style-scope.ytd-button-renderer.style-primary.size-default[aria-label="Accept the use of cookies and other data for the purposes described"]')
             agree_button.click()
             return self.scroll_down()
         except Exception as e:

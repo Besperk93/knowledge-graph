@@ -1,3 +1,8 @@
+"""
+Adapted from the hugging face KnowBert implementation by ndoll1998 (https://github.com/ndoll1998/KnowBert) Credit must be given for the original implementation. Changes made to to utilise a GPT2 model as a base, utilise our Khan knowledge base and to get the model to train on my machine.
+
+"""
+
 import os
 import torch
 import pickle
@@ -10,7 +15,7 @@ from collections import OrderedDict
 
 
 class EmbeddedKnowledge:
-    # Contains a map of words to embeddings
+    # NOTE: Contains a map of words to embeddings
 
     def __init__(self, embedding_dimension, pad_id=None):
         self.pad_id = pad_id
